@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="User">
+    <typeAlias alias="UsrInfo" type="per.gene.lgn.vo.UserInfo" />
+
+
+    <cacheModel id="oneDayCategory" type="LRU">
+        <flushInterval hours="24" />
+    </cacheModel>
+
+
+    <resultMap id="selectMap" class="UsrInfo">
+        <result property="userName" column="USER" />
+        <result property="userPassword" column="PASSWORD" />
+        <result property="regCode" column="REGCODE" />
+        <result property="Career" column="CAREER" />
+        <result property="Projects" column="PROJECTS" />
+        <result property="Wish" column="WISH" />
+        <result property="Advisor" column="ADVISOR" />
+        <result property="Rank" column="RANK" />
+        <result property="Manager" column="MANAGER" />
+    </resultMap>
+
+ <!--   <resultMap class="appsSysConfVo" id="selectMap2">
+        <result property="confValue" column="CONF_VALUE" />
+    </resultMap>-->
+
+    <!-- 登录 -->
+    <select id="login" parameterClass="map" resultMap="selectMap">
+        SELECT * FROM USER WHERE USER=#userName# AND PASSWORD=#userPassword#
+    </select>
+    <!--
+        <select id="login" parameterClass="usrInfo" resultMap="selectMap">
+        SELECT * FROM USER WHERE USER=#userName# AND PASSWORD=#userPassword#
+    </select>-->
+
+
+    <!-- Global分页 -->
+    <!-- 查询Global总条数 -->
+    <select id="getGlobalCount" resultClass="integer" parameterClass="map">
+        SELECT COUNT(1) FROM APPS_SYS_CONF t WHERE 	1=1
+        <dynamic prepend="">
+            <isNotNull prepend="and" property="confKey"> t.CONF_KEY LIKE
+                '%$confKey$%'</isNotNull>
+            <isNotNull prepend="and" property="groupName"> t.GROUP_NAME LIKE
+                '%$groupName$%'</isNotNull>
+        </dynamic>
+    </select>
+
+<!--    <insert id="insert" parameterClass="appsSysConfVo">
+        INSERT INTO APPS_SYS_CONF (
+        <dynamic prepend="">
+            <isNotNull prepend="" property="confId">CONF_ID</isNotNull>
+            <isNotNull prepend="," property="confKey">CONF_KEY</isNotNull>
+            <isNotNull prepend="," property="confValue">CONF_VALUE</isNotNull>
+            <isNotNull prepend="," property="remarks">REMARKS</isNotNull>
+            <isNotNull prepend="," property="confType">CONF_TYPE</isNotNull>
+            <isNotNull prepend="," property="groupName">GROUP_NAME</isNotNull>
+            <isNotNull prepend="," property="createTime">CREATE_TIME</isNotNull>
+        </dynamic>
+        ) VALUES (
+        <dynamic prepend="">
+            <isNotNull prepend="" property="confId">#confId#</isNotNull>
+            <isNotNull prepend="," property="confKey">#confKey#</isNotNull>
+            <isNotNull prepend="," property="confValue">#confValue#</isNotNull>
+            <isNotNull prepend="," property="remarks">#remarks#</isNotNull>
+            <isNotNull prepend="," property="confType">#confType#</isNotNull>
+            <isNotNull prepend="," property="groupName">#groupName#</isNotNull>
+            <isNotNull prepend="," property="createTime">#createTime#</isNotNull>
+        </dynamic>
+        )
+    </insert>-->
+
+
+
+
+
+
+</sqlMap>

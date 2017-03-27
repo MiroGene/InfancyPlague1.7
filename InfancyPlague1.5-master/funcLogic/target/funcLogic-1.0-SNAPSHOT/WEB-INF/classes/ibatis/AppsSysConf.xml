@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="appsSysConf">
+	<typeAlias alias="appsSysConfVo" type="com.htjc.configsweb.buss.sysconf.vo.AppsSysConf" />
+	
+	
+	<cacheModel id="oneDayCategory" type="LRU">
+		<flushInterval hours="24" />
+	</cacheModel>
+	
+	
+	<resultMap id="selectMap" class="appsSysConfVo">
+		<result property="confId" column="CONF_ID" />
+		<result property="confKey" column="CONF_KEY" />
+		<result property="confValue" column="CONF_VALUE" />
+		<result property="remarks" column="REMARKS" />
+		<result property="confType" column="CONF_TYPE" />
+		<result property="groupName" column="GROUP_NAME" />
+		<result property="createTime" column="CREATE_TIME" />
+	</resultMap>
+
+	<resultMap class="appsSysConfVo" id="selectMap2">
+		<result property="confValue" column="CONF_VALUE" />
+	</resultMap>
+	
+	
+		<insert id="insert" parameterClass="appsSysConfVo">
+		INSERT INTO APPS_SYS_CONF (
+		<dynamic prepend="">
+			<isNotNull prepend="" property="confId">CONF_ID</isNotNull>
+			<isNotNull prepend="," property="confKey">CONF_KEY</isNotNull>
+			<isNotNull prepend="," property="confValue">CONF_VALUE</isNotNull>
+			<isNotNull prepend="," property="remarks">REMARKS</isNotNull>
+			<isNotNull prepend="," property="confType">CONF_TYPE</isNotNull>
+			<isNotNull prepend="," property="groupName">GROUP_NAME</isNotNull>
+			<isNotNull prepend="," property="createTime">CREATE_TIME</isNotNull>
+		</dynamic>
+		) VALUES (
+		<dynamic prepend="">
+			<isNotNull prepend="" property="confId">#confId#</isNotNull>
+			<isNotNull prepend="," property="confKey">#confKey#</isNotNull>
+			<isNotNull prepend="," property="confValue">#confValue#</isNotNull>
+			<isNotNull prepend="," property="remarks">#remarks#</isNotNull>
+			<isNotNull prepend="," property="confType">#confType#</isNotNull>
+			<isNotNull prepend="," property="groupName">#groupName#</isNotNull>
+			<isNotNull prepend="," property="createTime">#createTime#</isNotNull>
+		</dynamic>
+		)
+	</insert>
+		
+	<update id="update" parameterClass="appsSysConfVo">
+		UPDATE APPS_SYS_CONF SET CONF_ID = CONF_ID 
+		<dynamic prepend="">
+			<isNotNull prepend="," property="confKey">CONF_KEY = #confKey#
+			</isNotNull>
+			<isNotNull prepend="," property="confValue">CONF_VALUE = #confValue#
+			</isNotNull>
+			<isNotNull prepend="," property="remarks">REMARKS = #remarks#
+			</isNotNull>
+			<isNotNull prepend="," property="confType">CONF_TYPE = #confType#
+			</isNotNull>
+			<isNotNull prepend="," property="groupName">GROUP_NAME = #groupName#
+			</isNotNull>
+		</dynamic>
+		WHERE CONF_ID=#confId# 
+	</update>
+
+	<delete id="delete" parameterClass="appsSysConfVo">
+		DELETE FROM APPS_SYS_CONF WHERE CONF_ID =#confId#
+
+	</delete>
+	
+	
+	<!-- Global分页 -->
+	<!-- 查询Global总条数 -->
+	<select id="getGlobalCount" resultClass="integer" parameterClass="map">
+		SELECT COUNT(1) FROM APPS_SYS_CONF t WHERE 	1=1
+		<dynamic prepend="">
+			<isNotNull prepend="and" property="confKey"> t.CONF_KEY LIKE
+				'%$confKey$%'</isNotNull>
+			<isNotNull prepend="and" property="groupName"> t.GROUP_NAME LIKE
+				'%$groupName$%'</isNotNull>
+		</dynamic>
+	</select>
+
+		<!-- 查询Global分页结果 -->
+	<select id="getGlobalPage" resultMap="selectMap" parameterClass="map">
+		SELECT * FROM (
+		SELECT t.*,ROWNUM r FROM
+		(SELECT * FROM APPS_SYS_CONF a WHERE 1=1
+		<dynamic prepend="">
+			<isNotEmpty prepend="and" property="confId"> CONF_ID =#confId#
+			</isNotEmpty>
+			<isNotNull prepend="and" property="confKey"> a.CONF_KEY LIKE
+				'%$confKey$%'</isNotNull>
+			<isNotNull prepend="and" property="groupName"> a.GROUP_NAME LIKE
+				'%$groupName$%'</isNotNull>
+		</dynamic>
+		ORDER BY CREATE_TIME DESC)t
+		)p WHERE p.r>#start# AND #end#>=p.r
+	</select>
+	
+	
+	<select id="getGlobalByIdAndKey" resultMap="selectMap" parameterClass="map">
+			SELECT * FROM APPS_SYS_CONF WHERE 1=1
+		<dynamic prepend="">
+			<isNotEmpty prepend="and" property="confId"> CONF_ID =#confId#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="confId"> CONF_KEY =#confKey#
+			</isNotEmpty>
+		</dynamic>
+	</select>
+		<select id="getByKey" resultMap="selectMap" parameterClass="map">
+		SELECT * FROM APPS_SYS_CONF WHERE 
+		CONF_KEY =#confKey#
+	</select>
+		
+
+	</sqlMap>

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="funcLogic:war">
+    <output-path>$PROJECT_DIR$/funcLogic/target</output-path>
+    <root id="archive" name="funcLogic-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="funcLogic:war exploded" />
+    </root>
+  </artifact>
+</component>
