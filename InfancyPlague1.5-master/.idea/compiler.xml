@@ -10,10 +10,10 @@
         <module name="mq" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="funcLogic" target="1.5" />
-      <module name="mq" target="1.5" />
-      <module name="plague" target="1.5" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="funcLogic" target="1.8" />
+      <module name="mq" target="1.8" />
+      <module name="plague" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>

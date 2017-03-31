@@ -25,7 +25,9 @@
 </div>
 <%--日期--%>
 <div>
-    <textarea id="detail" name="confValue"  style="float: left;width:650px;" cols="" rows="" class="textinput"></textarea><br>
+    <li>
+        <textarea id="detail" name="confValue"  style="float: left;width:650px;" cols="" rows="" class="textinput"></textarea><br>
+    </li>
 </div>
 <div>
     <input type="text" id="company" value=""/>
