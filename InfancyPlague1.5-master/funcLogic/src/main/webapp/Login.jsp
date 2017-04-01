@@ -16,7 +16,6 @@
     <script src="<c:out value="${basePath}"/>/js/index.js"></script>
     <script src="<c:out value="${basePath}"/>/js/background.js"></script>
     <script src="<c:out value="${basePath}"/>/js/ajaxfileupload.js"></script>
-    <title>TestLgn</title>
     <script type="text/javascript">
         $(function () {
             alert("   ");

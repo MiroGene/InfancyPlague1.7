@@ -33,7 +33,7 @@
                 </div>
                 <div class="left" style="width: 85%; height: 100%; background: black"><%--
                     <iframe id="iframe_content" width="100%"  height="100%" src='<c:out value="${restPath}"/>/apps/pageSelect?appName=""' scrolling="yes"  frameborder="0"></iframe>--%>
-                    <iframe id="iframe_content" width="100%"  height="100%" src='/Login.jsp' scrolling="yes"  frameborder="0"></iframe>
+                    <iframe id="iframe_content" width="100%"  height="100%" src='/jsp/account_info.jsp' scrolling="yes"  frameborder="0"></iframe>
                 </div>
                 <div id="bottomm" style="display:none;">
                     <iframe id="iframe_bottom"  width="100%"  height="100%"  frameborder="0" ></iframe>

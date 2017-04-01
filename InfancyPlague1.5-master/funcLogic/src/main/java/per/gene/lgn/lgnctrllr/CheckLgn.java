@@ -38,14 +38,7 @@ public class CheckLgn extends BaseCtrllr{
         Map<String,String> map = new HashMap<String, String>();
         map.put("userName",usrNme);
         map.put("userPassword",usrPwd);
-
-
        // b.getConn("com.mysql.jdbc.Driver","jdbc:mysql://localhost:3306/test_module","Gene","a");
-
-
-
-
-
 /*
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -67,7 +60,7 @@ public class CheckLgn extends BaseCtrllr{
 
 
             //跳转到个人页面
-            return "/succ";
+            return "/jsp/index";
         }
 
         return "a";

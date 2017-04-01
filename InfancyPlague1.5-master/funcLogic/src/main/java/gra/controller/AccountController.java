@@ -4,6 +4,7 @@ import gra.service.AccountService;
 import gra.vo.AccountVo;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import per.gene.base.utils.StringUtils;
 
@@ -13,7 +14,8 @@ import java.util.*;
 /**
  * Created by Gene on 2017/3/27.
  */
-@RequestMapping("/account")
+@Controller
+@RequestMapping("/Account")
 public class AccountController {
     @Autowired
     private AccountService accountService;
@@ -29,6 +31,7 @@ public class AccountController {
      * 分页查询账单列表
      * @return
      */
+    @RequestMapping("/selectAccountPage")
     public String accountListPage(HttpServletRequest request){
         List<AccountVo> accountVoList = new ArrayList<AccountVo>();
         //查询方式 1、日期 2、名字 3、标题
@@ -55,7 +58,7 @@ public class AccountController {
     /**
      * 创建新账单
      */
-    @RequestMapping("/add")
+    @RequestMapping("/addAccount")
     public String addAccount(HttpServletRequest request){
         /* TODO */
         AccountVo account = new AccountVo();
