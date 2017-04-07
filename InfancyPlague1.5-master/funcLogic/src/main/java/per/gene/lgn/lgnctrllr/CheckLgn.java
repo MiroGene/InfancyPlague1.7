@@ -48,6 +48,7 @@ public class CheckLgn extends BaseCtrllr{
         UserInfo usr = loginService.checkLogin(map);
         if (usr==null){
             throw new ConfException("未查到此用户");
+
             //return "";
         }
         else if(usr!=null){
@@ -55,8 +56,8 @@ public class CheckLgn extends BaseCtrllr{
             request.getSession().setAttribute(userSession.SESSION_USR_INFO,usr);
             //response.sendRedirect(contextPath+"/jsp/webconf/index.jsp");
             //function
-            request.setAttribute("name",usr.getUsrNme());
-            request.setAttribute("password",usr.getUsrPwd());
+            request.setAttribute("name",usr.getUserName());
+            request.setAttribute("password",usr.getUserPassword());
 
 
             //跳转到个人页面

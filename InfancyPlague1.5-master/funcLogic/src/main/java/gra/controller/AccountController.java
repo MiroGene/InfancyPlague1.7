@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import per.gene.base.utils.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -58,13 +59,13 @@ public class AccountController {
     /**
      * 创建新账单
      */
-    @RequestMapping("/addAccount")
+    @RequestMapping("/insertAccount")
     public String addAccount(HttpServletRequest request){
-        /* TODO */
+
         AccountVo account = new AccountVo();
         String userId = UUID.randomUUID().toString();
         //设置ID
-        account.setId(userId);
+        account.setAccountId(userId);
         //设置用户名
         if(StringUtils.isEmpty(request.getParameter("userName"))){
             account.setUserName(request.getParameter("userName"));
@@ -78,9 +79,10 @@ public class AccountController {
             account.setMoney(request.getParameter("money"));
         }
         //设置日期
-        if(StringUtils.isEmpty(request.getParameter("date"))){
-            account.setDate(request.getParameter("date"));
-        }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        String strDate = sdf.format(new Date());
+        account.setDate(request.getParameter("date"));
+
         //设置详细内容
         if(StringUtils.isEmpty(request.getParameter("detail"))){
             account.setDetail(request.getParameter("detail"));
@@ -90,12 +92,17 @@ public class AccountController {
             account.setCompany(request.getParameter("company"));
         }
         //设置状态
-        if(StringUtils.isEmpty(request.getParameter("states"))){
-            account.setStates(request.getParameter("states"));
-        }
-        //TODO
-        //accountService
+        account.setStates("0");
+
+        accountService.insertAccount(account);
 
         return "main.jsp";
+    }
+
+    public String delectAccount(HttpServletRequest request){
+        //TODO 如何传输list？
+
+        //返回主页面
+        return null;
     }
 }

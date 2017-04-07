@@ -10,7 +10,7 @@
 
 
     <resultMap id="selectMap" class="UsrInfo">
-        <result property="userName" column="USER" />
+        <result property="userId" column="USER_ID" />
         <result property="userPassword" column="PASSWORD" />
         <result property="regCode" column="REGCODE" />
         <result property="Career" column="CAREER" />
@@ -19,6 +19,7 @@
         <result property="Advisor" column="ADVISOR" />
         <result property="Rank" column="RANK" />
         <result property="Manager" column="MANAGER" />
+        <result property="userName" column="USER_NAME" />
     </resultMap>
 
  <!--   <resultMap class="appsSysConfVo" id="selectMap2">
@@ -27,7 +28,7 @@
 
     <!-- 登录 -->
     <select id="login" parameterClass="map" resultMap="selectMap">
-        SELECT * FROM USER WHERE USER=#userName# AND PASSWORD=#userPassword#
+        SELECT * FROM USER WHERE USER_NAME=#userName# AND PASSWORD=#userPassword#
     </select>
     <!--
         <select id="login" parameterClass="usrInfo" resultMap="selectMap">

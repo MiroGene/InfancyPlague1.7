@@ -10,12 +10,13 @@
 <html>
 <head>
     <title>account_list</title>
+    <link href='<c:out value="${basePath}"/>/css/index.css' rel="stylesheet" type="text/css" />
 </head>
 <body>
 
 <%--账单列表，创建新账单按钮，查找按钮及输入框，个人信息修改--%>
 <div class="place">
-    <span>用户列表</span>
+    <span>账单列表</span>
 </div>
 <div class="rightinfo">
     <div class="tools">
@@ -37,29 +38,23 @@
         <thead>
         <tr>
             <th width="30px"></th>
-            <th width="220px">操作</th>
+            <th width="220px">主题</th>
             <th width="120px">姓名</th>
-            <th width="140px">手机号</th>
-            <th width="185px">邮箱号</th>
-            <th >项目权限</th>
-            <th>备注</th>
+            <th width="140px">审核状态</th>
         </tr>
         </thead>
         <tbody>
-        <c:forEach var="user" items="${list}" varStatus="i">
+        <c:forEach var="account" items="${list}" varStatus="i">
             <tr>
                 <td><input name="" type="checkbox" value="" /></td>
                 <td>
-                    <a href="javascript:selectInfo('<c:out value="${user.userAccount}"/>')" class="tablelink">查看</a>|
-                    <a href="javascript:beforeEdit('<c:out value="${user.userAccount}"/>')" class="tablelink">修改</a>|
-                    <a href="javascript:beforeEditPer('<c:out value="${user.userId}"/>','<c:out value="${user.userAccount}"/>')" class="tablelink">权限</a>|
-                    <a href="javascript:updatePwd('<c:out value="${user.userId}"/>','<c:out value="${user.userName}" />')" class="tablelink">重置密码</a>|
-
+                    <a href="javascript:selectInfo('<c:out value="${accountVoList.userAccount}"/>')" class="tablelink">查看</a>|
+                    <a href="javascript:beforeEdit('<c:out value="${accountVoList.userAccount}"/>')" class="tablelink">修改</a>|
                     <a href="javascript:del('<c:out value="${user.userId}"/>','<c:out value="${user.userName}"/>')" class="tablelink">删除</a>
                 </td>
-                <td><c:out value="${user.userName}" /></td>
-                <td><c:out value="${user.phone}" /></td>
-                <td><c:out value="${user.email}" /></td>
+                <td><c:out value="${accountVoList.title}" /></td>
+                <td><c:out value="${accountVoList.userName}" /></td>
+                <td><c:out value="${accountVoList.states}" /></td>
                 <td>
                     <c:forEach var="userPer" items="${userPers}">
                         <c:if test="${user.userId eq userPer.userId}" >

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="Account">
+    <typeAlias alias="AccountVo" type="gra.vo.AccountVo" />
+
+
+    <cacheModel id="oneDayCategory" type="LRU">
+        <flushInterval hours="24" />
+    </cacheModel>
+
+
+    <resultMap id="selectMap" class="AccountVo">
+        <result property="accountId " column="ACCOUNT_ID " />
+        <result property="userName  " column="USER_NAME " />
+        <result property="title     " column="TITLE " />
+        <result property="money     " column="MONEY " />
+        <result property="date      " column="DATE " />
+        <result property="detail    " column="DETAIL " />
+        <result property="company   " column="COMPANY " />
+        <result property="states    " column="STATES " />
+    </resultMap>
+
+    <resultMap id="listAttribute" class="AccountVo">
+        <result property="accountId " column="ACCOUNT_ID " />   <!--隐藏属性-->
+        <result property="userName  " column="USER_NAME " />
+        <result property="title     " column="TITLE " />
+        <result property="states    " column="STATES " />
+    </resultMap>
+
+    <!--   <resultMap class="appsSysConfVo" id="selectMap2">
+           <result property="confValue" column="CONF_VALUE" />
+       </resultMap>-->
+    <!--批量删除-->
+    <delete id="delectAccount"  parameterClass="list">
+        delete
+        from ACCOUNT
+        where ACCOUNT_ID in
+        <iterate conjunction="," open="(" close=")">
+            #[].accountId#
+        </iterate>
+    </delete>
+
+    <!--
+        <select id="login" parameterClass="usrInfo" resultMap="selectMap">
+        SELECT * FROM USER WHERE USER=#userName# AND PASSWORD=#userPassword#
+    </select>-->
+
+
+    <!-- account分页 -->
+    <select id="pageAccount" resultMap="listAttribute" parameterClass="map">
+        SELECT * FROM (
+        SELECT t.*,ROWNUM r FROM
+        (SELECT * FROM ACCOUNT a WHERE 1=1
+        <dynamic prepend="">
+            <isNotEmpty prepend="and" property="appId"> APP_ID =#appId#
+            </isNotEmpty>
+            <isNotNull prepend="and" property="confKey"> CONF_KEY LIKE
+                '%$confKey$%'</isNotNull>
+            <isNotNull prepend="and" property="groupName"> GROUP_NAME LIKE
+                '%$groupName$%'</isNotNull>
+        </dynamic>
+        ORDER BY CREATE_TIME DESC)t
+        )p WHERE p.r>#start# AND #end#>=p.r
+    </select>
+
+
+    <!-- 查询account总条数 -->
+    <select id="countAccount" resultClass="integer" parameterClass="map">
+        SELECT COUNT(1) FROM ACCOUNT t WHERE 	1=1
+        <dynamic prepend="">
+            <isNotEmpty prepend="and" property="userName"> t.USER_NAME LIKE      /*DATE,USER,MONEY,OPERATOR*/
+                '%$userName$%'</isNotEmpty>
+            <isNotEmpty prepend="and" property="groupName"> t.MONEY LIKE
+                '%$groupName$%'</isNotEmpty>
+            <isNotEmpty prepend="and" property="groupName">t.GROUP_NAME LIKE
+                '%$groupName$%'</isNotEmpty>
+        </dynamic>
+    </select>
+
+
+
+    <!--插入新账单-->
+    <insert id="insertAccount" parameterClass="AccountVo">
+        INSERT INTO ACCOUNT (
+        <dynamic prepend="">
+            <isNotNull prepend=" " property="accountId">ACCOUNT_ID</isNotNull>
+            <isNotNull prepend="," property="accountUser">ACCOUNT_USER</isNotNull>
+            <isNotNull prepend="," property="title">TITLE</isNotNull>
+            <isNotNull prepend="," property="money">MONEY</isNotNull>
+            <isNotNull prepend="," property="commitDate">COMMIT_DATE</isNotNull>
+            <isNotNull prepend="," property="detail">DETAIL</isNotNull>
+            <isNotNull prepend="," property="company">COMPANY</isNotNull>
+            <isNotNull prepend="," property="states">STATES</isNotNull>
+            <isNotNull prepend="," property="accountOperator">ACCOUNT_OPERATOR</isNotNull>
+        </dynamic>
+        ) VALUES (
+        <dynamic prepend="">
+            <isNotNull prepend=" " property="accountId">#accountId#</isNotNull>
+            <isNotNull prepend="," property="accountUser">#accountUser#</isNotNull>
+            <isNotNull prepend="," property="title">#title#</isNotNull>
+            <isNotNull prepend="," property="money">#money#</isNotNull>
+            <isNotNull prepend="," property="date">#date#</isNotNull>
+            <isNotNull prepend="," property="detail">#detail#</isNotNull>
+            <isNotNull prepend="," property="company">#company#</isNotNull>
+            <isNotNull prepend="," property="states">#states#</isNotNull>
+            <isNotNull prepend="," property="accountOperator">#accountOperator#</isNotNull>
+        </dynamic>
+        )
+    </insert>
+
+
+    <!--修改-->
+    <update id="update" parameterClass="appsSysConfVo">
+        UPDATE ACCOUNT SET ACCOUNT_ID = ACCOUNT_ID
+        <dynamic prepend="">
+            <isNotNull prepend="," property="title">TITLE = #title#
+            </isNotNull>
+            <isNotNull prepend="," property="money">MONEY = #money#
+            </isNotNull>
+            <isNotNull prepend="," property="accountOperator">ACCOUNT_OPERATOR = #accountOperator#
+            </isNotNull>
+            <isNotNull prepend="," property="detail">DETAIL = #detail#
+            </isNotNull>
+            <isNotNull prepend="," property="company">COMPANY = #company#
+            </isNotNull>
+        </dynamic>
+        WHERE ACCOUNT_ID=#ACCOUNT_ID#
+    </update>
+
+
+
+</sqlMap>

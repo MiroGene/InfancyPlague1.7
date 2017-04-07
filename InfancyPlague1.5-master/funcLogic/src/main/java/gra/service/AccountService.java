@@ -1,9 +1,7 @@
 package gra.service;
 
 import gra.vo.AccountVo;
-import org.apache.shiro.authc.Account;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -16,25 +14,25 @@ public interface AccountService {
      * map中为查询条件
      * @return
      */
-    public List<AccountVo> queryAccountList(Map map);
+    public List<AccountVo> queryAccountList(Map<String,String> map);
     /**
      * 账单总数
      * @return
      */
-    public int getAccountCount(Map map);
+    public int getAccountCount(Map<String,String> map);
     /**
      * 新建账单
      * @return
      */
-    public boolean insertAccount();
+    public AccountVo insertAccount(AccountVo accountVo);
     /**
      * 修改账单
      * @return
      */
-    public boolean updateAccount();
+    public int updateAccount(AccountVo accountVo);
     /**
      * 删除账单
      * @return
      */
-    public boolean delectAccount();
+    public int delectAccount(Map<String,String> map);
 }

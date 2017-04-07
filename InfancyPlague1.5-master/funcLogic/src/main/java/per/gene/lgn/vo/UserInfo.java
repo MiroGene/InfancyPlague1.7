@@ -5,13 +5,17 @@ package per.gene.lgn.vo;
  */
 public class UserInfo {
     /**
+     * id
+     */
+    private String userId;
+    /**
      *注册码
      */
     private String regCode;
     /**
      *本次昵称
      */
-    private String tempName;
+    //private String tempName;
     /**
      *用户名
      */
@@ -52,18 +56,24 @@ public class UserInfo {
     /**
      * 金币
      */
-    private Integer gold;
+    //private Integer gold;
     /**
      * Money
      */
-    private Integer RMB;
+    //private Integer RMB;
 
     /**
      * 未读消息数量(未读消息，待审核)
      */
     private Integer msgCount;
 
+    public String getUserId() {
+        return userId;
+    }
 
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public String getRegCode() {
         return regCode;
@@ -71,6 +81,23 @@ public class UserInfo {
 
     public void setRegCode(String regCode) {
         this.regCode = regCode;
+    }
+
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getUserPassword() {
+        return userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
+        this.userPassword = userPassword;
     }
 
     public String getProjects() {
@@ -129,30 +156,12 @@ public class UserInfo {
         Career = career;
     }
 
-    public UserInfo(){
 
-        }
-    public UserInfo(String usrNme, String usrPwd){
-            this.userName = usrNme;
-            this.userPassword = usrPwd;
+    public Integer getMsgCount() {
+        return msgCount;
     }
 
-    public String getUsrPwd() {
-            return userPassword;
+    public void setMsgCount(Integer msgCount) {
+        this.msgCount = msgCount;
     }
-
-    public void setUsrPwd(String usrPwd) {
-            this.userPassword = usrPwd;
-        }
-
-    public String getUsrNme() {
-
-            return userName;
-        }
-
-    public void setUsrNme(String usrNme) {
-            this.userName = usrNme;
-        }
-
-
-    }
+}

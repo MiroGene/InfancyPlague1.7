@@ -16,23 +16,23 @@ public class AccountServiceImpl implements AccountService{
     private AccountDao accountDao;
 
 
-    public List<AccountVo> queryAccountList(Map map) {
-        return null;
+    public List<AccountVo> queryAccountList(Map<String,String> map) {
+        return accountDao.pageAccount(map);
     }
 
     public int getAccountCount(Map map) {
         return 0;
     }
 
-    public boolean insertAccount() {
-        return false;
+    public AccountVo insertAccount(AccountVo accountVo) {
+        return accountDao.insert(accountVo);
     }
 
-    public boolean updateAccount() {
-        return false;
+    public int updateAccount(AccountVo accountVo) {
+        return accountDao.update(accountVo);
     }
 
-    public boolean delectAccount() {
-        return false;
+    public int delectAccount(Map<String,String> map) {
+        return accountDao.delectAccount(map);
     }
 }

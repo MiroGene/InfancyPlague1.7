@@ -24,16 +24,16 @@
         </div>
         <div class="content" >
             <div class="c_list clearFix" style="width:100%;">
-                <!--这里引入配置中心-->
+
                 <div class="left" style="width: 15%; height: 100%;background: blue">
                     <iframe id="iframe_left" width="100%"  height="100%" src='/succ.jsp' scrolling="yes"  frameborder="0"></iframe>
 <%--
                     <iframe id="iframe_left" width="100%"  height="100%" src='<c:out value="${daddy}"/>/apps/getDisList' scrolling="yes"  frameborder="0"></iframe>
 --%>
                 </div>
-                <div class="left" style="width: 85%; height: 100%; background: black"><%--
+                <div class="left" style="width: 85%; height: 100%; "><%--
                     <iframe id="iframe_content" width="100%"  height="100%" src='<c:out value="${restPath}"/>/apps/pageSelect?appName=""' scrolling="yes"  frameborder="0"></iframe>--%>
-                    <iframe id="iframe_content" width="100%"  height="100%" src='/jsp/account_info.jsp' scrolling="yes"  frameborder="0"></iframe>
+                    <iframe id="iframe_content" width="100%"  height="100%" src='/jsp/account_list.jsp' scrolling="yes"  frameborder="0"></iframe>
                 </div>
                 <div id="bottomm" style="display:none;">
                     <iframe id="iframe_bottom"  width="100%"  height="100%"  frameborder="0" ></iframe>

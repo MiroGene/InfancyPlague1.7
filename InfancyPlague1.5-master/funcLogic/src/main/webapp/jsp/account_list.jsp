@@ -10,12 +10,13 @@
 <html>
 <head>
     <title>account_list</title>
+    <link href='<c:out value="${basePath}"/>/css/index.css' rel="stylesheet" type="text/css" />
 </head>
 <body>
 
 <%--账单列表，创建新账单按钮，查找按钮及输入框，个人信息修改--%>
 <div class="place">
-    <span>用户列表</span>
+    <span>账单列表</span>
 </div>
 <div class="rightinfo">
     <div class="tools">
@@ -23,9 +24,9 @@
             <ul class="toolbar">
                 <li style="float: left;background-image: none;border: none;vertical-align:middle;">姓名：
                     <input placeholder="请输入姓名" id="user_name_search" name="user_name_search" value="${userName}" class="dfinput" style="height: 25px;width: 120px;margin: auto auto;"/></li>
-                <li style="float: left;background-image: none;border: none;vertical-align:middle;">手机号：
+                <li style="float: left;background-image: none;border: none;vertical-align:middle;">主题：
                     <input placeholder="请输入手机号" id="user_phone_search" name="user_phone_search" value="${userPhone }" class="dfinput" style="height: 25px;width: 120px;margin: auto auto;"/></li>
-                <li style="float: left;background-image: none;border: none;vertical-align:middle;">邮箱号：
+                <li style="float: left;background-image: none;border: none;vertical-align:middle;">操作员：
                     <input placeholder="请输入邮箱号" id="user_email_search" name="user_email_search" value="${userEmail }" class="dfinput" style="height: 25px;width: 160px;margin: auto auto;"/></li>
                 <li class="but" id="search" style="width: 50px;text-align: center;">&nbsp;&nbsp;&nbsp;搜索</li>
                 <li class="but" id="gaoji"><span><img
@@ -40,6 +41,7 @@
             <th width="220px">主题</th>
             <th width="120px">姓名</th>
             <th width="140px">审核状态</th>
+            <th width="120px">操作员</th>
         </tr>
         </thead>
         <tbody>
@@ -47,13 +49,14 @@
             <tr>
                 <td><input name="" type="checkbox" value="" /></td>
                 <td>
-                    <a href="javascript:selectInfo('<c:out value="${user.userAccount}"/>')" class="tablelink">查看</a>|
-                    <a href="javascript:beforeEdit('<c:out value="${user.userAccount}"/>')" class="tablelink">修改</a>|
+                    <a href="javascript:selectInfo('<c:out value="${accountVoList.userAccount}"/>')" class="tablelink">查看</a>|
+                    <a href="javascript:beforeEdit('<c:out value="${accountVoList.userAccount}"/>')" class="tablelink">修改</a>|
                     <a href="javascript:del('<c:out value="${user.userId}"/>','<c:out value="${user.userName}"/>')" class="tablelink">删除</a>
                 </td>
-                <td><c:out value="${user.userName}" /></td>
-                <td><c:out value="${user.phone}" /></td>
-                <td><c:out value="${user.email}" /></td>
+                <td><c:out value="${accountVoList.title}" /></td>
+                <td><c:out value="${accountVoList.userName}" /></td>
+                <td><c:out value="${accountVoList.states}" /></td>
+                <td><c:out value="${accountVoList.operatorName}" /></td>
                 <td>
                     <c:forEach var="userPer" items="${userPers}">
                         <c:if test="${user.userId eq userPer.userId}" >

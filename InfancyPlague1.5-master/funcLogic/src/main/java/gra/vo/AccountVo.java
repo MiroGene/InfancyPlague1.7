@@ -5,14 +5,15 @@ package gra.vo;
  * 账单的实体类
  */
 public class AccountVo {
-    private String id;
-    private String userName;
+    private String accountId;
     private String title;
+    private String account_user;
     private String money;
     private String date;
     private String detail;
     private String company;
     private String states;
+
     /**
      * 失败原因
      */
@@ -26,12 +27,12 @@ public class AccountVo {
         this.result = result;
     }
 
-    public String getId() {
-        return id;
+    public String getAccountId() {
+        return accountId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
     }
 
     public String getUserName() {
