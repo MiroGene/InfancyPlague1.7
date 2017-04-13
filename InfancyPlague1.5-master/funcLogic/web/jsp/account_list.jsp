@@ -11,11 +11,6 @@
 <head>
     <title>account_list</title>
     <link href='<c:out value="${basePath}"/>/css/index.css' rel="stylesheet" type="text/css" />
-    <script type="text/javascript">
-        function selectInfo() {
-            
-        }
-    </script>
 </head>
 <body>
 
@@ -25,21 +20,17 @@
 </div>
 <div class="rightinfo">
     <div class="tools">
-        --------------------<c:out value="${daddyPath}"/>
-        <form id="searchForm" method="post" action="${daddyPath }/Account/selectAccountPage?pageIndex=1">
+        <form method="post" action="${restPath}/selectAccountPage/?pageIndex=1">
             <ul class="toolbar">
                 <li style="float: left;background-image: none;border: none;vertical-align:middle;">姓名：
-                    <input placeholder="请输入姓名" id="user_search" name="user_name_search"  class="dfinput" style="height: 25px;width: 120px;margin: auto auto;"/></li>
-                    <%--<input placeholder="请输入姓名" id="user_search" name="user_name_search" value="${accountOperator}" class="dfinput" style="height: 25px;width: 120px;margin: auto auto;"/></li>--%>
-                <li style="float: left;background-image: none;border: none;vertical-align:middle;">操作员姓名：
-                    <input placeholder="请输入操作员" id="operator_search" name="user_phone_search"  class="dfinput" style="height: 25px;width: 120px;margin: auto auto;"/></li>
-                <li style="float: left;background-image: none;border: none;vertical-align:middle;">日期：
-                    <input placeholder="请输入日期" id="date_search" name="user_email_search"class="dfinput" style="height: 25px;width: 160px;margin: auto auto;"/></li>
-                <li class="but" id="search1" style="width: 50px;text-align: center;" >&nbsp;&nbsp;&nbsp;
-                    <input id="search" type="submit" value="搜索" /></li>
+                    <input placeholder="请输入姓名" id="user_name_search" name="user_name_search" value="${userName}" class="dfinput" style="height: 25px;width: 120px;margin: auto auto;"/></li>
+                <li style="float: left;background-image: none;border: none;vertical-align:middle;">主题：
+                    <input placeholder="请输入手机号" id="user_phone_search" name="user_phone_search" value="${userPhone }" class="dfinput" style="height: 25px;width: 120px;margin: auto auto;"/></li>
+                <li style="float: left;background-image: none;border: none;vertical-align:middle;">操作员：
+                    <input placeholder="请输入邮箱号" id="user_email_search" name="user_email_search" value="${userEmail }" class="dfinput" style="height: 25px;width: 160px;margin: auto auto;"/></li>
+                <li class="but" id="search" style="width: 50px;text-align: center;">&nbsp;&nbsp;&nbsp;搜索</li>
                 <li class="but" id="gaoji"><span><img
                         src="<c:out value="${basePath}"/>/images/t01.png" /></span>添加</li>
-
             </ul>
         </form>
     </div>
@@ -58,11 +49,9 @@
             <tr>
                 <td><input name="" type="checkbox" value="" /></td>
                 <td>
-                    <form action="${daddy}/Account/selectAccountPage">
                     <a href="javascript:selectInfo('<c:out value="${account.accountId}"/>')" class="tablelink">查看</a>|
                     <a href="javascript:beforeEdit('<c:out value="${account.accountId}"/>')" class="tablelink">修改</a>|
                     <a href="javascript:del('<c:out value="${user.userId}"/>','<c:out value="${account.accountId}"/>')" class="tablelink">删除</a>
-                    </form>
                 </td>
                 <td><c:out value="${account.title}" /></td>
                 <%--<td><c:out value="${account.userName}" /></td>--%>
@@ -89,17 +78,17 @@
 <!-- 页码 -->
 <div style="text-align: right;">
     <input
-            <c:if test="${pageIndex eq 1 }">disabled="disabled"</c:if>
+            <c:if test="${page.pageIndex eq 1 }">disabled="disabled"</c:if>
             type="button" value="首页" onclick="goPage(1)"
             style="width: 60px; height: 25px; font-size: 14px; cursor: pointer;" />&nbsp;&nbsp;&nbsp;
     <input
-            <c:if test="${pageIndex eq 1 }">disabled="disabled"</c:if>
+            <c:if test="${page.pageIndex eq 1 }">disabled="disabled"</c:if>
             type="button" value="上一页"
-            onclick="goPage(${pageIndex-1})"
+            onclick="goPage(${page.pageIndex-1})"
             style="width: 60px; height: 25px; font-size: 14px; cursor: pointer;" />&nbsp;&nbsp;&nbsp;
     <c:forEach items="${pages}" var="pageNum1">
         <a href="javascript:goPage(${pageNum1});"
-           <c:if test="${pageNum1 eq pageIndex}">onclick = "return false;"</c:if>
+           <c:if test="${pageNum1 eq page.pageIndex}">onclick = "return false;"</c:if>
            style="font-size: 16px;line-height: 25px; <c:if test='${pageNum1 eq page.pageIndex}'>color:#DDDDDD;</c:if>">${pageNum1}</a>&nbsp;&nbsp;
     </c:forEach>
     &nbsp;&nbsp; <input

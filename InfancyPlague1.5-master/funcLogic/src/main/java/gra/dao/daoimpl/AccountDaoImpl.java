@@ -1,7 +1,9 @@
 package gra.dao.daoimpl;
 
 import gra.dao.AccountDao;
+import gra.vo.AccountSelectVar;
 import gra.vo.AccountVo;
+import org.springframework.stereotype.Service;
 import per.gene.base.BaseDao;
 import per.gene.base.BaseDaoForIbatis;
 
@@ -12,19 +14,24 @@ import java.util.Map;
 /**
  * Created by Administrator on 2017/3/27.
  */
+@Service
 public class AccountDaoImpl extends BaseDaoForIbatis implements AccountDao {
 
     /**
      * 查询分页结果
-     * @param map
+     * @param accounntSelectVar
      * @return
      */
-    public List<AccountVo> pageAccount(Map<String,String> map) {  //页码，日期搜索，用户名搜索，
-        if (map.isEmpty()){
-            throw new RuntimeException("");
+    public List<AccountVo> pageAccount(AccountSelectVar accounntSelectVar) {  //页码，日期搜索，用户名搜索，
+        if (accounntSelectVar==null){
+            //throw new RuntimeException("");
         }
+        accounntSelectVar.getStart();
+        accounntSelectVar.getEnd();
+
+
         List<AccountVo> accounts = new ArrayList<AccountVo>();
-        accounts = (List<AccountVo>)this.queryForObject("pageAccount",map);
+        accounts = this.queryForList("Account.pageAccount",accounntSelectVar);
         return accounts;
     }
 
@@ -34,7 +41,7 @@ public class AccountDaoImpl extends BaseDaoForIbatis implements AccountDao {
      * @return
      */
     public AccountVo insert(AccountVo accountVo) {
-        this.insert("insertAccount",accountVo);
+        this.insert("Account.insertAccount",accountVo);
         return accountVo;
     }
 
@@ -44,7 +51,7 @@ public class AccountDaoImpl extends BaseDaoForIbatis implements AccountDao {
      * @return
      */
     public int update(AccountVo accountVo) {
-        int i = this.update("updateAccount",accountVo);
+        int i = this.update("Account.updateAccount",accountVo);
         return i;
     }
 
@@ -54,7 +61,7 @@ public class AccountDaoImpl extends BaseDaoForIbatis implements AccountDao {
      * @return
      */
     public int delectAccount(Map<String,String> map) {
-        int i = this.delete("delectAccount",map);
+        int i = this.delete("Account.delectAccount",map);
         return i;
     }
 
@@ -64,7 +71,7 @@ public class AccountDaoImpl extends BaseDaoForIbatis implements AccountDao {
      * @return
      */
     public int getAccountCount(Map<String, String> map) {
-        int i = (Integer) this.queryForObject("countAccount",map);
+        int i = (Integer) this.queryForObject("Account.countAccount",map);
         return 0;
     }
 }

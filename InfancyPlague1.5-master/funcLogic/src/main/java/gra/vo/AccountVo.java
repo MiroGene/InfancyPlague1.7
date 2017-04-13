@@ -7,17 +7,27 @@ package gra.vo;
 public class AccountVo {
     private String accountId;
     private String title;
-    private String account_user;
+    private String accountUser;
+    private String userName;
     private String money;
-    private String date;
+    private String accountDate;
     private String detail;
     private String company;
     private String states;
+    private String accountOperator;
 
     /**
      * 失败原因
      */
     private String result;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public String getResult() {
         return result;
@@ -31,16 +41,32 @@ public class AccountVo {
         return accountId;
     }
 
+    public String getAccountUser() {
+        return accountUser;
+    }
+
+    public void setAccountUser(String accountUser) {
+        this.accountUser = accountUser;
+    }
+
+    public String getAccountDate() {
+        return accountDate;
+    }
+
+    public void setAccountDate(String accountDate) {
+        this.accountDate = accountDate;
+    }
+
+    public String getAccountOperator() {
+        return accountOperator;
+    }
+
+    public void setAccountOperator(String accountOperator) {
+        this.accountOperator = accountOperator;
+    }
+
     public void setAccountId(String accountId) {
         this.accountId = accountId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getTitle() {
@@ -57,14 +83,6 @@ public class AccountVo {
 
     public void setMoney(String money) {
         this.money = money;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     public String getDetail() {
@@ -89,5 +107,18 @@ public class AccountVo {
 
     public void setStates(String states) {
         this.states = states;
+    }
+
+    public void changeStates(){
+        if(states==null){
+            return;
+        }
+        if(states.equals("1")){
+            setStates("审核中……");
+        }else if (states.equals("2")){
+            setStates("审核成功");
+        }else if (states.equals("3")){
+            setStates("审核失败");
+        }
     }
 }

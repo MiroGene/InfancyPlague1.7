@@ -21,6 +21,7 @@
     <!-- base-package 如果多个，用“,”分隔 -->
     <!-- 启用包扫描功能，以便注册带有@controller、@Service、等注解的类成为spring的bean-->
     <context:component-scan base-package="per.gene" />
+    <context:component-scan base-package="gra" />
 
     <!-- maxUploadSize:文件上传的最大值以byte为单位 -->
 <!--    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
@@ -28,16 +29,6 @@
     <property name="maxUploadSize" value="1024000"></property>
 </bean>-->
 
-    <mvc:interceptors>
-        <bean class="per.gene.jspctrllr.JspInterceptor" />
-    </mvc:interceptors>
-
-<!--    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/>
-            <bean id="SessionInterceptor" class="com.htjc.configsweb.buss.login.interceptor.SessionInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>-->
     <!--引入配置文件-->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">

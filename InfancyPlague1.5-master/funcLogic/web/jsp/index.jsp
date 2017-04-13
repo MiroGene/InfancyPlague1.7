@@ -1,5 +1,4 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -16,7 +15,7 @@
 <body>
         <div style="background: red" class="top"><a id="hello">您好,您已登录&nbsp;<span style="color:red">{${title}}</span></a>
             <a id="exit" href="javascript:location.href='${restPath}/user/logout'">退出</a>
-            <a id="global" href="javascript:global();">全局配置-----------${daddyPath}</a>
+            <a id="global" href="javascript:global();">全局配置</a>
             <a id="apps" href="javascript:location.href='${basePath}jsp/webconf/index.jsp'">应用配置</a>
         </div>
         <div class="in_head" style="background: orange">

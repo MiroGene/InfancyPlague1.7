@@ -19,5 +19,6 @@
 		maxTransactions="50" useStatementNamespaces="true" />
 
      <sqlMap resource="ibatis/user.xml" />
+     <sqlMap resource="ibatis/account.xml" />
 </sqlMapConfig>
 

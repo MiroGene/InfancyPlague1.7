@@ -1,5 +1,6 @@
 package gra.dao;
 
+import gra.vo.AccountSelectVar;
 import gra.vo.AccountVo;
 
 import java.util.ArrayList;
@@ -12,10 +13,10 @@ import java.util.Map;
 public interface AccountDao {
     /**
      * 分页查询，条件分页查询
-     * @param map
+     * @param accounntSelectVar
      * @return
      */
-    public List<AccountVo> pageAccount(Map<String,String> map);
+    public List<AccountVo> pageAccount(AccountSelectVar accounntSelectVar);
 
     public AccountVo insert(AccountVo accountVo);
 

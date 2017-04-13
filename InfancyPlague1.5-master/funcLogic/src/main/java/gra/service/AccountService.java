@@ -1,5 +1,6 @@
 package gra.service;
 
+import gra.vo.AccountSelectVar;
 import gra.vo.AccountVo;
 
 import java.util.List;
@@ -14,7 +15,7 @@ public interface AccountService {
      * map中为查询条件
      * @return
      */
-    public List<AccountVo> queryAccountList(Map<String,String> map);
+    public List<AccountVo> queryAccountList(AccountSelectVar accounntSelectVar);
     /**
      * 账单总数
      * @return

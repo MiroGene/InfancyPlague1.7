@@ -8,7 +8,9 @@ import per.gene.base.exception.ConfException;
 public class StringUtils {
 
     public static boolean isEmpty(String str){
-        if(str.equals("")||str==null){
+        if(str==null){
+            return true;
+        }else if (str.equals("")){
             return true;
         }
         else return false;

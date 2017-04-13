@@ -2,7 +2,7 @@
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="Account">
     <typeAlias alias="AccountVo" type="gra.vo.AccountVo" />
-
+    <typeAlias alias="AccountSelectVar" type="gra.vo.AccountSelectVar" />
 
     <cacheModel id="oneDayCategory" type="LRU">
         <flushInterval hours="24" />
@@ -10,26 +10,24 @@
 
 
     <resultMap id="selectMap" class="AccountVo">
-        <result property="accountId " column="ACCOUNT_ID " />
-        <result property="userName  " column="USER_NAME " />
-        <result property="title     " column="TITLE " />
-        <result property="money     " column="MONEY " />
-        <result property="date      " column="DATE " />
-        <result property="detail    " column="DETAIL " />
-        <result property="company   " column="COMPANY " />
-        <result property="states    " column="STATES " />
+        <result property="accountId" column="ACCOUNT_ID" />
+        <result property="title" column="TITLE" />
+        <result property="accountUser" column="ACCOUNT_USER" />
+        <result property="money" column="MONEY" />
+        <result property="accountDate" column="ACCOUNT_DATE" />
+        <result property="detail" column="DETAIL" />
+        <result property="company" column="COMPANY" />
+        <result property="states" column="STATES" />
+        <result property="accountOperator" column="ACCOUNT_OPERATOR" />
     </resultMap>
 
     <resultMap id="listAttribute" class="AccountVo">
-        <result property="accountId " column="ACCOUNT_ID " />   <!--隐藏属性-->
-        <result property="userName  " column="USER_NAME " />
-        <result property="title     " column="TITLE " />
-        <result property="states    " column="STATES " />
+        <result property="accountId" column="ACCOUNT_ID" />
+        <result property="title" column="TITLE" />
+        <result property="states" column="STATES" />
+        <result property="accountOperator" column="ACCOUNT_OPERATOR" />
     </resultMap>
 
-    <!--   <resultMap class="appsSysConfVo" id="selectMap2">
-           <result property="confValue" column="CONF_VALUE" />
-       </resultMap>-->
     <!--批量删除-->
     <delete id="delectAccount"  parameterClass="list">
         delete
@@ -47,20 +45,24 @@
 
 
     <!-- account分页 -->
-    <select id="pageAccount" resultMap="listAttribute" parameterClass="map">
+    <select id="pageAccount" resultMap="listAttribute" parameterClass="AccountSelectVar">
         SELECT * FROM (
-        SELECT t.*,ROWNUM r FROM
+        SELECT t.* FROM
         (SELECT * FROM ACCOUNT a WHERE 1=1
         <dynamic prepend="">
-            <isNotEmpty prepend="and" property="appId"> APP_ID =#appId#
+            <isNotEmpty prepend="and" property=""> ACCOUNT_DATE =#date#
             </isNotEmpty>
-            <isNotNull prepend="and" property="confKey"> CONF_KEY LIKE
-                '%$confKey$%'</isNotNull>
-            <isNotNull prepend="and" property="groupName"> GROUP_NAME LIKE
-                '%$groupName$%'</isNotNull>
+            <isNotEmpty prepend="and" property=""> ACCOUNT_ID =#accountId#
+            </isNotEmpty>
+            <isNotEmpty prepend="and" property=""> ACCOUNT_USER =#user_id#
+            </isNotEmpty>
+            <isNotEmpty prepend="and" property="confKey"> TITLE LIKE
+                '%$title$%'</isNotEmpty>
+            <isNotEmpty prepend="and" property="groupName"> OPERATOR_NAME LIKE
+                '%operatorName%'</isNotEmpty>
         </dynamic>
-        ORDER BY CREATE_TIME DESC)t
-        )p WHERE p.r>#start# AND #end#>=p.r
+        ORDER BY ACCOUNT_DATE DESC)t
+        )p limit #start#,#end#
     </select>
 
 
@@ -68,12 +70,16 @@
     <select id="countAccount" resultClass="integer" parameterClass="map">
         SELECT COUNT(1) FROM ACCOUNT t WHERE 	1=1
         <dynamic prepend="">
-            <isNotEmpty prepend="and" property="userName"> t.USER_NAME LIKE      /*DATE,USER,MONEY,OPERATOR*/
-                '%$userName$%'</isNotEmpty>
-            <isNotEmpty prepend="and" property="groupName"> t.MONEY LIKE
-                '%$groupName$%'</isNotEmpty>
-            <isNotEmpty prepend="and" property="groupName">t.GROUP_NAME LIKE
-                '%$groupName$%'</isNotEmpty>
+            <isNotEmpty prepend="and" property=""> ACCOUNT_DATE =#date#
+            </isNotEmpty>
+            <isNotEmpty prepend="and" property=""> ACCOUNT_ID =#accountId#
+            </isNotEmpty>
+            <isNotEmpty prepend="and" property=""> ACCOUNT_USER =#user_id#
+            </isNotEmpty>
+            <isNotEmpty prepend="and" property="confKey"> TITLE LIKE
+                '%$title$%'</isNotEmpty>
+            <isNotEmpty prepend="and" property="groupName"> OPERATOR_NAME LIKE
+                '%operatorName%'</isNotEmpty>
         </dynamic>
     </select>
 
@@ -83,7 +89,7 @@
     <insert id="insertAccount" parameterClass="AccountVo">
         INSERT INTO ACCOUNT (
         <dynamic prepend="">
-            <isNotNull prepend=" " property="accountId">ACCOUNT_ID</isNotNull>
+            <isNotNull prepend="" property="accountId">ACCOUNT_ID</isNotNull>
             <isNotNull prepend="," property="accountUser">ACCOUNT_USER</isNotNull>
             <isNotNull prepend="," property="title">TITLE</isNotNull>
             <isNotNull prepend="," property="money">MONEY</isNotNull>
@@ -95,7 +101,7 @@
         </dynamic>
         ) VALUES (
         <dynamic prepend="">
-            <isNotNull prepend=" " property="accountId">#accountId#</isNotNull>
+            <isNotNull prepend="" property="accountId">#accountId#</isNotNull>
             <isNotNull prepend="," property="accountUser">#accountUser#</isNotNull>
             <isNotNull prepend="," property="title">#title#</isNotNull>
             <isNotNull prepend="," property="money">#money#</isNotNull>
@@ -110,7 +116,7 @@
 
 
     <!--修改-->
-    <update id="update" parameterClass="appsSysConfVo">
+    <update id="update" parameterClass="AccountVo">
         UPDATE ACCOUNT SET ACCOUNT_ID = ACCOUNT_ID
         <dynamic prepend="">
             <isNotNull prepend="," property="title">TITLE = #title#

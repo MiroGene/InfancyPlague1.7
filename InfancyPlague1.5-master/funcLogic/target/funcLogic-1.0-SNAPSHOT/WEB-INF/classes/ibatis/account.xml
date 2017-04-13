@@ -2,7 +2,7 @@
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="Account">
     <typeAlias alias="AccountVo" type="gra.vo.AccountVo" />
-
+    <typeAlias alias="AccountSelectVar" type="gra.vo.AccountSelectVar" />
 
     <cacheModel id="oneDayCategory" type="LRU">
         <flushInterval hours="24" />
@@ -10,26 +10,24 @@
 
 
     <resultMap id="selectMap" class="AccountVo">
-        <result property="accountId " column="ACCOUNT_ID " />
-        <result property="userName  " column="USER_NAME " />
-        <result property="title     " column="TITLE " />
-        <result property="money     " column="MONEY " />
-        <result property="date      " column="DATE " />
-        <result property="detail    " column="DETAIL " />
-        <result property="company   " column="COMPANY " />
-        <result property="states    " column="STATES " />
+        <result property="accountId" column="ACCOUNT_ID" />
+        <result property="title" column="TITLE" />
+        <result property="accountUser" column="ACCOUNT_USER" />
+        <result property="money" column="MONEY" />
+        <result property="accountDate" column="ACCOUNT_DATE" />
+        <result property="detail" column="DETAIL" />
+        <result property="company" column="COMPANY" />
+        <result property="states" column="STATES" />
+        <result property="accountOperator" column="ACCOUNT_OPERATOR" />
     </resultMap>
 
     <resultMap id="listAttribute" class="AccountVo">
-        <result property="accountId " column="ACCOUNT_ID " />   <!--隐藏属性-->
-        <result property="userName  " column="USER_NAME " />
-        <result property="title     " column="TITLE " />
-        <result property="states    " column="STATES " />
+        <result property="accountId" column="ACCOUNT_ID" />
+        <result property="title" column="TITLE" />
+        <result property="states" column="STATES" />
+        <result property="accountOperator" column="ACCOUNT_OPERATOR" />
     </resultMap>
 
-    <!--   <resultMap class="appsSysConfVo" id="selectMap2">
-           <result property="confValue" column="CONF_VALUE" />
-       </resultMap>-->
     <!--批量删除-->
     <delete id="delectAccount"  parameterClass="list">
         delete
@@ -47,20 +45,20 @@
 
 
     <!-- account分页 -->
-    <select id="pageAccount" resultMap="listAttribute" parameterClass="map">
+    <select id="pageAccount" resultMap="listAttribute" parameterClass="AccountSelectVar">
         SELECT * FROM (
-        SELECT t.*,ROWNUM r FROM
+        SELECT t.* FROM
         (SELECT * FROM ACCOUNT a WHERE 1=1
-        <dynamic prepend="">
-            <isNotEmpty prepend="and" property="appId"> APP_ID =#appId#
+<!--        <dynamic prepend="">
+            <isNotEmpty prepend="and" property=""> APP_ID =##
             </isNotEmpty>
             <isNotNull prepend="and" property="confKey"> CONF_KEY LIKE
                 '%$confKey$%'</isNotNull>
             <isNotNull prepend="and" property="groupName"> GROUP_NAME LIKE
                 '%$groupName$%'</isNotNull>
-        </dynamic>
-        ORDER BY CREATE_TIME DESC)t
-        )p WHERE p.r>#start# AND #end#>=p.r
+        </dynamic>-->
+        ORDER BY ACCOUNT_DATE DESC)t
+        )p limit #start#,#end#
     </select>
 
 
@@ -110,7 +108,7 @@
 
 
     <!--修改-->
-    <update id="update" parameterClass="appsSysConfVo">
+    <update id="update" parameterClass="AccountVo">
         UPDATE ACCOUNT SET ACCOUNT_ID = ACCOUNT_ID
         <dynamic prepend="">
             <isNotNull prepend="," property="title">TITLE = #title#

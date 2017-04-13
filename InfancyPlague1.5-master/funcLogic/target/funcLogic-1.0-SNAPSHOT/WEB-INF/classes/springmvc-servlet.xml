@@ -11,10 +11,9 @@
         http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context-4.2.xsd
         http://www.springframework.org/schema/mvc
-        http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
-        http://www.springframework.org/schema/task
-        http://www.springframework.org/schema/task/spring-task-4.2.xsd">
-
+        http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd">
+<!--        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task-4.2.xsd-->
     <!-- 扫描路径 -->
     <context:component-scan base-package="per.gene" >
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
@@ -23,9 +22,21 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
         <context:include-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice" />
     </context:component-scan>
+    <context:component-scan base-package="gra" >
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
 
     <!-- 配置根视图 -->
     <mvc:view-controller path="/web/" view-name="Login"/>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->
+            <mvc:mapping path="/**" />
+            <!-- 拦截器类 -->
+            <bean class="per.gene.jspctrllr.JspInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <!-- 激活基于注解的配置 @RequestMapping, @ExceptionHandler,数据绑定 ,@NumberFormat ,
     @DateTimeFormat ,@Controller ,@Valid ,@RequestBody ,@ResponseBody等  -->

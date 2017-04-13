@@ -26,7 +26,7 @@
 </head>
 <body>
 <form action="${daddyPath}/Lgn/checkUsr" method="post">
-    ${daddyPath}<br>
+   ----------------------- ${daddyPath}<br>
     Name<input type="text" id="usrNme" name="usrNme"/>
     Pwd <input type="password" id="usrPwd" name="usrPwd"/>
     <input type="submit">

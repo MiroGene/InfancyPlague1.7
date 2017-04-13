@@ -1,6 +1,7 @@
 package gra.controller;
 
 import gra.service.AccountService;
+import gra.vo.AccountSelectVar;
 import gra.vo.AccountVo;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,27 +35,42 @@ public class AccountController {
      */
     @RequestMapping("/selectAccountPage")
     public String accountListPage(HttpServletRequest request){
+        String pageIndexStr = request.getParameter("pageIndex");
+        if (pageIndexStr==null){
+            pageIndexStr="0";
+        }
+        Integer pageIndex = Integer.parseInt(pageIndexStr);
+        int start = pageIndex*10;
         List<AccountVo> accountVoList = new ArrayList<AccountVo>();
         //查询方式 1、日期 2、名字 3、标题
-        String date = request.getParameter("date");
-        String userName = request.getParameter("userName");
-        String title = request.getParameter("title");
-        Map<String, String> map = new HashMap<String, String>();
-        if (StringUtils.isEmpty(date)){
-            map.put("date",date);
+        String date = request.getParameter("searchDate");
+        String userName = request.getParameter("searchUserName");
+        String title = request.getParameter("searchTitle");
+        String operator = request.getParameter("searchOperator");
+        AccountSelectVar accounntSelectVar = new AccountSelectVar();
+        if (!StringUtils.isEmpty(date)){
+            accounntSelectVar.setDate(date);
         }
-        if (StringUtils.isEmpty(userName)){
-            map.put("userName",userName);
+        if (!StringUtils.isEmpty(userName)){
+            accounntSelectVar.setUserName(userName);
         }
-        if (StringUtils.isEmpty(title)){
-            map.put("title",title);
+        if (!StringUtils.isEmpty(title)){
+            accounntSelectVar.setTitle(title);
         }
+        if (!StringUtils.isEmpty(operator)){
+            accounntSelectVar.setOperator(operator);
+        }
+        //map.put("",start);
         //取得查询结果
-        accountVoList = accountService.queryAccountList(map);
+        accountVoList = accountService.queryAccountList(accounntSelectVar);
+        for (AccountVo accountVo:
+                accountVoList) {
+            accountVo.changeStates();
+        }
         //返回页面
         request.setAttribute("accountVoList",accountVoList);
 
-        return "";
+        return "/jsp/account_list";
     }
     /**
      * 创建新账单
@@ -66,7 +82,7 @@ public class AccountController {
         String userId = UUID.randomUUID().toString();
         //设置ID
         account.setAccountId(userId);
-        //设置用户名
+        //TODO 设置用户名 从session中获取用户名
         if(StringUtils.isEmpty(request.getParameter("userName"))){
             account.setUserName(request.getParameter("userName"));
         }
@@ -81,7 +97,7 @@ public class AccountController {
         //设置日期
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String strDate = sdf.format(new Date());
-        account.setDate(request.getParameter("date"));
+        account.setAccountDate(request.getParameter("date"));
 
         //设置详细内容
         if(StringUtils.isEmpty(request.getParameter("detail"))){

@@ -14,7 +14,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 /**
  * 拦截器页面加载拦截器
  *
- * @author YU
+ * @author G
  */
 public class JspInterceptor extends HandlerInterceptorAdapter {
 
@@ -26,7 +26,9 @@ public class JspInterceptor extends HandlerInterceptorAdapter {
     public void postHandle(HttpServletRequest request,
                            HttpServletResponse response, Object handler,
                            ModelAndView modelAndView) throws Exception {
-
+        if(1==1){
+            System.out.println("----------------------------------------------");
+        }
         loadPath(request);
         super.postHandle(request, response, handler, modelAndView);
     }
@@ -39,14 +41,14 @@ public class JspInterceptor extends HandlerInterceptorAdapter {
     public void loadPath(HttpServletRequest request) {
 
         String path = request.getContextPath();
-        String restPath = request.getContextPath() + "/" + "rest";
+        String daddyPath = request.getContextPath() + "/" + "daddy";
         String basePath = request.getScheme() + "://" + request.getServerName()
                 + ":" + request.getServerPort() + request.getContextPath()
                 + "/";
 
 
         request.setAttribute("path", path);
-        request.setAttribute("restPath", restPath);
+        request.setAttribute("daddyPath", daddyPath);
         request.setAttribute("basePath", basePath);
         request.setAttribute("confPath",basePath+"/jsp/webconf");
     }

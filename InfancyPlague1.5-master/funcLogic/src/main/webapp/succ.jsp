@@ -28,7 +28,9 @@
     </script>
 </head>
 <body>
-${name} <br/>
-${password}
+Name : ${name} <br/>
+Password : ${password}
+${daddyPath}
+---------------<c:out value="${daddyPath}"/>
 </body>
 </html>
