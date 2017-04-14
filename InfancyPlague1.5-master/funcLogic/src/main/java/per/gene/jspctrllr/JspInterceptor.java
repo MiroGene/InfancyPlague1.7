@@ -50,7 +50,7 @@ public class JspInterceptor extends HandlerInterceptorAdapter {
         request.setAttribute("path", path);
         request.setAttribute("daddyPath", daddyPath);
         request.setAttribute("basePath", basePath);
-        request.setAttribute("confPath",basePath+"/jsp/webconf");
+        request.setAttribute("jspPath",basePath+"/jsp");
     }
 
 }

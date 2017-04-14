@@ -12,6 +12,13 @@
 <head>
     <title>Title</title>
     <link href='<c:out value="${basePath}"/>/css/index.css' rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/js/jquery-1.7.2.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var daddyPath = "${daddyPath}";
+            alert(daddyPath);
+        })
+    </script>
 </head>
 <body>
         <div style="background: red" class="top"><a id="hello">您好,您已登录&nbsp;<span style="color:red">{${title}}</span></a>
@@ -34,7 +41,7 @@
                 </div>
                 <div class="left" style="width: 85%; height: 100%; "><%--
                     <iframe id="iframe_content" width="100%"  height="100%" src='<c:out value="${restPath}"/>/apps/pageSelect?appName=""' scrolling="yes"  frameborder="0"></iframe>--%>
-                    <iframe id="iframe_content" width="100%"  height="100%" src='/daddy/Account/selectAccountPage' scrolling="yes"  frameborder="0"></iframe>
+                    <iframe id="iframe_content" width="100%"  height="100%" src='${daddyPath}/Account/selectAccountPage' scrolling="yes"  frameborder="0"></iframe>
                 </div>
                 <div id="bottomm" style="display:none;">
                     <iframe id="iframe_bottom"  width="100%"  height="100%"  frameborder="0" ></iframe>

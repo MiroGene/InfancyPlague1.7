@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
 <sqlMap namespace="Account">
-    <typeAlias alias="AccountVo" type="gra.vo.AccountVo" />
-    <typeAlias alias="AccountSelectVar" type="gra.vo.AccountSelectVar" />
+    <typeAlias alias="AccountVo" type="com.vo.AccountVo" />
+    <typeAlias alias="AccountSelectVar" type="com.vo.AccountSelectVar" />
 
     <cacheModel id="oneDayCategory" type="LRU">
         <flushInterval hours="24" />
@@ -50,15 +50,15 @@
         SELECT t.* FROM
         (SELECT * FROM ACCOUNT a WHERE 1=1
         <dynamic prepend="">
-            <isNotEmpty prepend="and" property=""> ACCOUNT_DATE =#date#
+            <isNotEmpty prepend="and" property="date"> ACCOUNT_DATE =#date#
             </isNotEmpty>
-            <isNotEmpty prepend="and" property=""> ACCOUNT_ID =#accountId#
+            <isNotEmpty prepend="and" property="accountId"> ACCOUNT_ID =#accountId#
             </isNotEmpty>
-            <isNotEmpty prepend="and" property=""> ACCOUNT_USER =#user_id#
+            <isNotEmpty prepend="and" property="userId"> ACCOUNT_USER =#userId#
             </isNotEmpty>
-            <isNotEmpty prepend="and" property="confKey"> TITLE LIKE
+            <isNotEmpty prepend="and" property="title"> TITLE LIKE
                 '%$title$%'</isNotEmpty>
-            <isNotEmpty prepend="and" property="groupName"> OPERATOR_NAME LIKE
+            <isNotEmpty prepend="and" property="operatorName"> OPERATOR_NAME LIKE
                 '%operatorName%'</isNotEmpty>
         </dynamic>
         ORDER BY ACCOUNT_DATE DESC)t
@@ -93,7 +93,7 @@
             <isNotNull prepend="," property="accountUser">ACCOUNT_USER</isNotNull>
             <isNotNull prepend="," property="title">TITLE</isNotNull>
             <isNotNull prepend="," property="money">MONEY</isNotNull>
-            <isNotNull prepend="," property="commitDate">COMMIT_DATE</isNotNull>
+            <isNotNull prepend="," property="accountDate">ACCOUNT_DATE</isNotNull>
             <isNotNull prepend="," property="detail">DETAIL</isNotNull>
             <isNotNull prepend="," property="company">COMPANY</isNotNull>
             <isNotNull prepend="," property="states">STATES</isNotNull>
@@ -105,7 +105,7 @@
             <isNotNull prepend="," property="accountUser">#accountUser#</isNotNull>
             <isNotNull prepend="," property="title">#title#</isNotNull>
             <isNotNull prepend="," property="money">#money#</isNotNull>
-            <isNotNull prepend="," property="date">#date#</isNotNull>
+            <isNotNull prepend="," property="accountDate">#accountDate#</isNotNull>
             <isNotNull prepend="," property="detail">#detail#</isNotNull>
             <isNotNull prepend="," property="company">#company#</isNotNull>
             <isNotNull prepend="," property="states">#states#</isNotNull>
@@ -116,21 +116,33 @@
 
 
     <!--修改-->
-    <update id="update" parameterClass="AccountVo">
+    <update id="updateAccount" parameterClass="AccountVo">
         UPDATE ACCOUNT SET ACCOUNT_ID = ACCOUNT_ID
         <dynamic prepend="">
+            <isNotNull prepend="," property="accountId">ACCOUNT_ID = #accountId#
+            </isNotNull>
             <isNotNull prepend="," property="title">TITLE = #title#
+            </isNotNull>
+            <isNotNull prepend="," property="accountUser">ACCOUNT_USER = #accountUser#
             </isNotNull>
             <isNotNull prepend="," property="money">MONEY = #money#
             </isNotNull>
-            <isNotNull prepend="," property="accountOperator">ACCOUNT_OPERATOR = #accountOperator#
+            <isNotNull prepend="," property="accountDate">ACCOUNT_DATE = #accountDate#
             </isNotNull>
             <isNotNull prepend="," property="detail">DETAIL = #detail#
             </isNotNull>
             <isNotNull prepend="," property="company">COMPANY = #company#
             </isNotNull>
+            <isNotNull prepend="," property="states">STATES = #states#
+            </isNotNull>
+            <isNotNull prepend="," property="accountOperator">ACCOUNT_OPERATOR = #accountOperator#
+            </isNotNull>
+            <isNotNull prepend="," property="operatorName">OPERATOR_NAME = #operatorName#
+            </isNotNull>
+            <isNotNull prepend="," property="userName">USER_NAME = #userName#
+            </isNotNull>
         </dynamic>
-        WHERE ACCOUNT_ID=#ACCOUNT_ID#
+        WHERE ACCOUNT_ID=#accountId#
     </update>
 
 

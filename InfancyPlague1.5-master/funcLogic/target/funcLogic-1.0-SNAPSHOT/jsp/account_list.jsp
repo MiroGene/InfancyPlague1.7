@@ -11,8 +11,18 @@
 <head>
     <title>account_list</title>
     <link href='<c:out value="${basePath}"/>/css/index.css' rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/js/jquery-1.7.2.js"></script>
     <script type="text/javascript">
-
+        function beforeInsert(){
+/*            var userName=$("#user_name_search").val();
+            var userPhone=$("#user_phone_search").val();
+            var userEmail=$("#user_email_search").val();*/
+            var userId="${user.userId}"
+            alert(userId);
+            location.href="<c:out value="${jspPath}"/>/account_insert.jsp?userId="+userId;
+                /* location.href="c:out value="{jspPath}"//user/selectInfo?userAccount="+userAccount+"&user_name_search="+encodeURI(userName)+
+             "&user_phone_search="+encodeURI(userPhone)+"&user_email_search="+encodeURI(userEmail)+"&pageIndex=c:out value="{page.pageIndex}"/>";*/
+        }
     </script>
 </head>
 <body>
@@ -24,14 +34,15 @@
 <div class="rightinfo">
     <div class="tools">
         --------------------<c:out value="${daddyPath}"/>
-        <form method="post" action="${daddyPath }/Account/selectAccountPage?pageIndex=1">
+        <form id="searchForm" method="post" action="${daddyPath }/Account/selectAccountPage?pageIndex=1">
             <ul class="toolbar">
                 <li style="float: left;background-image: none;border: none;vertical-align:middle;">姓名：
-                    <input placeholder="请输入姓名" id="user_search" name="user_name_search" value="${accountOperator}" class="dfinput" style="height: 25px;width: 120px;margin: auto auto;"/></li>
-                <li style="float: left;background-image: none;border: none;vertical-align:middle;">主题：
-                    <input placeholder="请输入操作员" id="operator_search" name="user_phone_search" value="${userPhone }" class="dfinput" style="height: 25px;width: 120px;margin: auto auto;"/></li>
-                <li style="float: left;background-image: none;border: none;vertical-align:middle;">操作员：
-                    <input placeholder="请输入日期" id="date_search" name="user_email_search" value="${userEmail }" class="dfinput" style="height: 25px;width: 160px;margin: auto auto;"/></li>
+                    <input placeholder="请输入姓名" id="user_search" name="user_name_search"  class="dfinput" style="height: 25px;width: 120px;margin: auto auto;"/></li>
+                    <%--<input placeholder="请输入姓名" id="user_search" name="user_name_search" value="${accountOperator}" class="dfinput" style="height: 25px;width: 120px;margin: auto auto;"/></li>--%>
+                <li style="float: left;background-image: none;border: none;vertical-align:middle;">操作员姓名：
+                    <input placeholder="请输入操作员" id="operator_search" name="user_phone_search"  class="dfinput" style="height: 25px;width: 120px;margin: auto auto;"/></li>
+                <li style="float: left;background-image: none;border: none;vertical-align:middle;">日期：
+                    <input placeholder="请输入日期" id="date_search" name="user_email_search"class="dfinput" style="height: 25px;width: 160px;margin: auto auto;"/></li>
                 <li class="but" id="search1" style="width: 50px;text-align: center;" >&nbsp;&nbsp;&nbsp;
                     <input id="search" type="submit" value="搜索" /></li>
                 <li class="but" id="gaoji"><span><img
@@ -39,6 +50,7 @@
 
             </ul>
         </form>
+        <a href="javascript:beforeInsert()" class="tablelink">增加</a>|
     </div>
     <table class="tablelist" style="table-layout: fixed;word-wrap:break-word;">
         <thead>
@@ -55,9 +67,11 @@
             <tr>
                 <td><input name="" type="checkbox" value="" /></td>
                 <td>
+                    <form action="${daddy}/Account/selectAccountPage">
                     <a href="javascript:selectInfo('<c:out value="${account.accountId}"/>')" class="tablelink">查看</a>|
                     <a href="javascript:beforeEdit('<c:out value="${account.accountId}"/>')" class="tablelink">修改</a>|
                     <a href="javascript:del('<c:out value="${user.userId}"/>','<c:out value="${account.accountId}"/>')" class="tablelink">删除</a>
+                    </form>
                 </td>
                 <td><c:out value="${account.title}" /></td>
                 <%--<td><c:out value="${account.userName}" /></td>--%>

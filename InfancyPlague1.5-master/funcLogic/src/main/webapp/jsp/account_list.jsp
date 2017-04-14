@@ -11,9 +11,17 @@
 <head>
     <title>account_list</title>
     <link href='<c:out value="${basePath}"/>/css/index.css' rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/js/jquery-1.7.2.js"></script>
     <script type="text/javascript">
-        function selectInfo() {
-            
+        function beforeInsert(){
+/*            var userName=$("#user_name_search").val();
+            var userPhone=$("#user_phone_search").val();
+            var userEmail=$("#user_email_search").val();*/
+            var userId="${user.userId}"
+            alert(userId);
+            location.href="<c:out value="${jspPath}"/>/account_insert.jsp?userId="+userId;
+                /* location.href="c:out value="{jspPath}"//user/selectInfo?userAccount="+userAccount+"&user_name_search="+encodeURI(userName)+
+             "&user_phone_search="+encodeURI(userPhone)+"&user_email_search="+encodeURI(userEmail)+"&pageIndex=c:out value="{page.pageIndex}"/>";*/
         }
     </script>
 </head>
@@ -42,6 +50,7 @@
 
             </ul>
         </form>
+        <a href="javascript:beforeInsert()" class="tablelink">增加</a>|
     </div>
     <table class="tablelist" style="table-layout: fixed;word-wrap:break-word;">
         <thead>

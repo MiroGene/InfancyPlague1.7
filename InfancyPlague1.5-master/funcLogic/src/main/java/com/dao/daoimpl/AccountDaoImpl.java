@@ -1,10 +1,9 @@
-package gra.dao.daoimpl;
+package com.dao.daoimpl;
 
-import gra.dao.AccountDao;
-import gra.vo.AccountSelectVar;
-import gra.vo.AccountVo;
+import com.dao.AccountDao;
+import com.vo.AccountSelectVar;
+import com.vo.AccountVo;
 import org.springframework.stereotype.Service;
-import per.gene.base.BaseDao;
 import per.gene.base.BaseDaoForIbatis;
 
 import java.util.ArrayList;
@@ -41,6 +40,7 @@ public class AccountDaoImpl extends BaseDaoForIbatis implements AccountDao {
      * @return
      */
     public AccountVo insert(AccountVo accountVo) {
+        accountVo.setAccountOperator("aaa");
         this.insert("Account.insertAccount",accountVo);
         return accountVo;
     }

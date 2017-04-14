@@ -58,6 +58,7 @@ public class CheckLgn extends BaseCtrllr{
             //function
             request.setAttribute("name",usr.getUserName());
             request.setAttribute("password",usr.getUserPassword());
+            request.setAttribute("userId",usr.getUserId());
 
 
             //跳转到个人页面

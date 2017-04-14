@@ -1,4 +1,4 @@
-package gra.vo;
+package com.vo;
 
 /**
  * Created by Gene on 2017/3/27.
@@ -8,18 +8,27 @@ public class AccountVo {
     private String accountId;
     private String title;
     private String accountUser;
-    private String userName;
     private String money;
     private String accountDate;
     private String detail;
     private String company;
     private String states;
     private String accountOperator;
+    private String operatorName;
+    private String userName;
 
     /**
      * 失败原因
      */
     private String result;
+
+    public String getOperatorName() {
+        return operatorName;
+    }
+
+    public void setOperatorName(String operatorName) {
+        this.operatorName = operatorName;
+    }
 
     public String getUserName() {
         return userName;
@@ -119,6 +128,18 @@ public class AccountVo {
             setStates("审核成功");
         }else if (states.equals("3")){
             setStates("审核失败");
+        }
+    }
+    public void changeStatesToFlag(){
+        if(states==null){
+            return;
+        }
+        if(states.equals("审核中……")){
+            setStates("1");
+        }else if (states.equals("审核成功")){
+            setStates("2");
+        }else if (states.equals("审核失败")){
+            setStates("3");
         }
     }
 }
