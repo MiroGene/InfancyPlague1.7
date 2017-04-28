@@ -11,6 +11,50 @@
 <head>
     <title>account_list</title>
     <link href='<c:out value="${basePath}"/>/css/index.css' rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="/js/jquery-1.7.2.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            var userId="${user.userId}";
+            var name = "${userId}";
+            alert(name);
+            alert(userId);
+        });
+        function beforeInsert(){
+            /*            var userName=$("#user_name_search").val();
+             var userPhone=$("#user_phone_search").val();
+             var userEmail=$("#user_email_search").val();*/
+            var userId="${user.userId}";
+            location.href="${daddyPath}/Account/beforeInsert?userId="+userId;
+            /* location.href="c:out value="{jspPath}"//user/selectInfo?userAccount="+userAccount+"&user_name_search="+encodeURI(userName)+
+             "&user_phone_search="+encodeURI(userPhone)+"&user_email_search="+encodeURI(userEmail)+"&pageIndex=c:out value="{page.pageIndex}"/>";*/
+        }
+        function del() {
+            var delCheckBox=$(".delectBox");
+            var delCheckBoxVal=$(".delectBox");
+            //var delCheckBoxValN = $("#del")
+            alert("delCheckBox--------------------"+delCheckBox);
+            for (var i=0;i<delCheckBox.length;i++){
+                if (delCheckBox[i].checked){
+                    alert("delCheckBox========"+delCheckBox[i].value);
+                }
+            }
+            //                    <a href="javascript:detailInfo('<c:out value="${account.accountId}"/>')" class="tablelink">查看</a>|
+            $("#form").attr("action","<c:out value="${daddyPath}"/>/Account/deleteAccount?delAccountId="+delCheckBox);
+
+            $("#form").attr("method","POST");
+            //$("#form").attr("target","_blank");
+            // $("#form").attr("method","POST");
+            //$("#form").attr("enctype","application/x-www-form-urlencoded");
+            // $("#form").attr("encoding","application/x-www-form-urlencoded");
+            $("#form").submit();
+        }
+        function detailInfo(accountId) {
+            $("#form").attr("action","<c:out value="${daddyPath}"/>/Account/detailAccount?accountId="+accountId);
+            $("#form").attr("method","POST");
+            $("#form").submit();
+        }
+    </script>
 </head>
 <body>
 
@@ -32,7 +76,7 @@
                 <li class="but" id="gaoji"><span><img
                         src="<c:out value="${basePath}"/>/images/t01.png" /></span>添加</li>
             </ul>
-        </form>
+
     </div>
     <table class="tablelist" style="table-layout: fixed;word-wrap:break-word;">
         <thead>
@@ -47,7 +91,7 @@
         <tbody>
         <c:forEach var="account" items="${accountVoList}" varStatus="i">
             <tr>
-                <td><input name="" type="checkbox" value="" /></td>
+                <td><input  type="checkbox" name="delCheckBox" value="${account.accountId}" class="delectBox"/></td>
                 <td>
                     <a href="javascript:selectInfo('<c:out value="${account.accountId}"/>')" class="tablelink">查看</a>|
                     <a href="javascript:beforeEdit('<c:out value="${account.accountId}"/>')" class="tablelink">修改</a>|
@@ -73,7 +117,7 @@
 
     </div>
 </div>
-
+</form>
 
 <!-- 页码 -->
 <div style="text-align: right;">

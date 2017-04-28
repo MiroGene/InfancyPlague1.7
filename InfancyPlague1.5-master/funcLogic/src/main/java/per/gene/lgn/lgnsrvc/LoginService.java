@@ -1,5 +1,6 @@
 package per.gene.lgn.lgnsrvc;
 
+import per.gene.lgn.vo.OperatorInfo;
 import per.gene.lgn.vo.UserInfo;
 
 import java.util.Map;
@@ -10,4 +11,5 @@ import java.util.Map;
 public interface LoginService {
 
     public UserInfo checkLogin(Map<String,String> map);
+    public OperatorInfo checkOperatorLogin(Map<String,String> map);
 }

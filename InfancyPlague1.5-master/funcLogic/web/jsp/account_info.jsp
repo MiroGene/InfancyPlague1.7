@@ -40,7 +40,7 @@
     </tr>
     <tr class="trs">
         <td>日期：</td>
-        <td style="padding: 5px;">${account.date}</td>
+        <td style="padding: 5px;">${account.accountDate}</td>
     </tr>
     <tr class="trs">
         <td>公&nbsp;&nbsp;司：</td>

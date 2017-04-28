@@ -19,6 +19,7 @@ C:\Users\Administrator\Desktop\InfancyPlague1.5-master\InfancyPlague1.5-master\f
 C:\Users\Administrator\Desktop\InfancyPlague1.5-master\InfancyPlague1.5-master\funcLogic\src\main\java\per\gene\lgn\vo\UserInfo.java
 C:\Users\Administrator\Desktop\InfancyPlague1.5-master\InfancyPlague1.5-master\funcLogic\src\main\java\com\controller\AccountController.java
 C:\Users\Administrator\Desktop\InfancyPlague1.5-master\InfancyPlague1.5-master\funcLogic\src\main\java\per\gene\base\exception\BaseDaoException.java
+C:\Users\Administrator\Desktop\InfancyPlague1.5-master\InfancyPlague1.5-master\funcLogic\src\main\java\per\gene\base\session\OperatorSession.java
 C:\Users\Administrator\Desktop\InfancyPlague1.5-master\InfancyPlague1.5-master\funcLogic\src\main\java\per\gene\jspctrllr\sessionFilter.java
 C:\Users\Administrator\Desktop\InfancyPlague1.5-master\InfancyPlague1.5-master\funcLogic\src\main\java\per\gene\msg\vo\ReviewMessage.java
 C:\Users\Administrator\Desktop\InfancyPlague1.5-master\InfancyPlague1.5-master\funcLogic\src\main\java\com\service\serviceimpl\AccountServiceImpl.java
@@ -29,3 +30,4 @@ C:\Users\Administrator\Desktop\InfancyPlague1.5-master\InfancyPlague1.5-master\f
 C:\Users\Administrator\Desktop\InfancyPlague1.5-master\InfancyPlague1.5-master\funcLogic\src\main\java\per\gene\jspctrllr\JspInterceptor.java
 C:\Users\Administrator\Desktop\InfancyPlague1.5-master\InfancyPlague1.5-master\funcLogic\src\main\java\per\gene\base\BaseDao.java
 C:\Users\Administrator\Desktop\InfancyPlague1.5-master\InfancyPlague1.5-master\funcLogic\src\main\java\per\gene\msg\vo\ApplicationMessage.java
+C:\Users\Administrator\Desktop\InfancyPlague1.5-master\InfancyPlague1.5-master\funcLogic\src\main\java\per\gene\lgn\vo\OperatorInfo.java

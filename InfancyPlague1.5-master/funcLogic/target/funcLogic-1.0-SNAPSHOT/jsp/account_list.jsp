@@ -12,17 +12,47 @@
     <title>account_list</title>
     <link href='<c:out value="${basePath}"/>/css/index.css' rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="/js/jquery-1.7.2.js"></script>
+
     <script type="text/javascript">
-        function beforeInsert(){
-/*            var userName=$("#user_name_search").val();
-            var userPhone=$("#user_phone_search").val();
-            var userEmail=$("#user_email_search").val();*/
-            var userId="${user.userId}"
+        $(function () {
+            var userId="${user.userId}";
+            var name = "${userId}";
+            alert(name);
             alert(userId);
-            location.href="<c:out value="${jspPath}"/>/account_insert.jsp?userId="+userId;
-                /* location.href="c:out value="{jspPath}"//user/selectInfo?userAccount="+userAccount+"&user_name_search="+encodeURI(userName)+
-             "&user_phone_search="+encodeURI(userPhone)+"&user_email_search="+encodeURI(userEmail)+"&pageIndex=c:out value="{page.pageIndex}"/>";*/
+        });
+    function beforeInsert(){
+        /*            var userName=$("#user_name_search").val();
+        var userPhone=$("#user_phone_search").val();
+        var userEmail=$("#user_email_search").val();*/
+        var userId="${user.userId}";
+        location.href="${daddyPath}/Account/beforeInsert?userId="+userId;
+        /* location.href="c:out value="{jspPath}"//user/selectInfo?userAccount="+userAccount+"&user_name_search="+encodeURI(userName)+
+        "&user_phone_search="+encodeURI(userPhone)+"&user_email_search="+encodeURI(userEmail)+"&pageIndex=c:out value="{page.pageIndex}"/>";*/
+    }
+function del() {
+    var delCheckBox=$(".delectBox");
+    var delCheckBoxVal=$(".delectBox").val();
+    alert("delCheckBox--------------------"+delCheckBox);
+    for (var i=0;i<delCheckBox.length;i++){
+        if (delCheckBox[i].checked){
+            alert(delCheckBox[i].value);
         }
+    }
+    //                    <a href="javascript:detailInfo('<c:out value="${account.accountId}"/>')" class="tablelink">查看</a>|
+    $("#form").attr("action","<c:out value="${daddyPath}"/>/Account/deleteAccount?delAccountId="+delCheckBoxVal);
+
+    $("#form").attr("method","POST");
+    //$("#form").attr("target","_blank");
+   // $("#form").attr("method","POST");
+    //$("#form").attr("enctype","application/x-www-form-urlencoded");
+    // $("#form").attr("encoding","application/x-www-form-urlencoded");
+    $("#form").submit();
+    }
+    function detailInfo(accountId) {
+        $("#form").attr("action","<c:out value="${daddyPath}"/>/Account/detailAccount?accountId="+accountId);
+        $("#form").attr("method","POST");
+        $("#form").submit();
+    }
     </script>
 </head>
 <body>
@@ -44,10 +74,7 @@
                 <li style="float: left;background-image: none;border: none;vertical-align:middle;">日期：
                     <input placeholder="请输入日期" id="date_search" name="user_email_search"class="dfinput" style="height: 25px;width: 160px;margin: auto auto;"/></li>
                 <li class="but" id="search1" style="width: 50px;text-align: center;" >&nbsp;&nbsp;&nbsp;
-                    <input id="search" type="submit" value="搜索" /></li>
-                <li class="but" id="gaoji"><span><img
-                        src="<c:out value="${basePath}"/>/images/t01.png" /></span>添加</li>
-
+                     <input id="search" type="submit" value="搜索" /></li>
             </ul>
         </form>
         <a href="javascript:beforeInsert()" class="tablelink">增加</a>|
@@ -56,6 +83,7 @@
         <thead>
         <tr>
             <th width="30px"></th>
+            <th width="220px">操作</th>
             <th width="220px">主题</th>
             <th width="120px">姓名</th>
             <th width="140px">审核状态</th>
@@ -65,16 +93,17 @@
         <tbody>
         <c:forEach var="account" items="${accountVoList}" varStatus="i">
             <tr>
-                <td><input name="" type="checkbox" value="" /></td>
+                <td><input  type="checkbox" name="delCheckBox" value="${account.accountId}" class="delectBox"/></td>
                 <td>
-                    <form action="${daddy}/Account/selectAccountPage">
-                    <a href="javascript:selectInfo('<c:out value="${account.accountId}"/>')" class="tablelink">查看</a>|
-                    <a href="javascript:beforeEdit('<c:out value="${account.accountId}"/>')" class="tablelink">修改</a>|
-                    <a href="javascript:del('<c:out value="${user.userId}"/>','<c:out value="${account.accountId}"/>')" class="tablelink">删除</a>
+                    <form method="post" id="form" >
+                    <a href="javascript:detailInfo('<c:out value="${account.accountId}"/>')" class="tablelink">查看</a>|
+                    <%--<a href="javascript:beforeEdit('<c:out value="${account.accountId}"/>')" class="tablelink">修改</a>|--%>
+                    <%--<a href="javascript:del('<c:out value="${user.userId}"/>','<c:out value="${account.accountId}"/>')" class="tablelink">删除</a>--%>
+                    <a href="javascript:del()" class="tablelink">删除</a>
                     </form>
                 </td>
                 <td><c:out value="${account.title}" /></td>
-                <%--<td><c:out value="${account.userName}" /></td>--%>
+                <td><c:out value="${account.userName}" /></td>
                 <td><c:out value="${account.states}" /></td>
                 <td><c:out value="${account.accountOperator}" /></td>
  <%--               <td>

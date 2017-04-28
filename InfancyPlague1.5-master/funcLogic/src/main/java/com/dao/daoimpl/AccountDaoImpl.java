@@ -74,4 +74,21 @@ public class AccountDaoImpl extends BaseDaoForIbatis implements AccountDao {
         int i = (Integer) this.queryForObject("Account.countAccount",map);
         return 0;
     }
+
+
+    /*
+         test删除列
+     */
+    public int delectAccountList(List<AccountVo> accountIdList){
+        int i = this.delete("Account.delectAccount",accountIdList);
+        return i;
+    }
+
+    @Override
+    public AccountVo detailAccount(String accountId) {
+        AccountVo accountVo = (AccountVo) this.queryForObject("Account.detailAccount",accountId);
+        return accountVo;
+    }
+
+
 }

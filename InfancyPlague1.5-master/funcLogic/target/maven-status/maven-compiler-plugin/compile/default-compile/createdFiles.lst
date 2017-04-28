@@ -11,6 +11,7 @@ per\gene\lgn\lgndao\LoginDao.class
 per\gene\post\postctrllr\PostControl.class
 per\gene\base\utils\StringUtils.class
 per\gene\jspctrllr\JspInterceptor.class
+per\gene\lgn\vo\OperatorInfo.class
 per\gene\base\session\userSession.class
 per\gene\lgn\lgndao\LoginDaoImpl.class
 per\gene\msg\vo\ReviewMessage.class
@@ -28,4 +29,5 @@ per\gene\base\BaseDaoForIbatis.class
 per\gene\jspctrllr\sessionFilter.class
 per\gene\jspctrllr\JspFilter.class
 com\service\serviceimpl\AccountServiceImpl.class
+per\gene\base\session\OperatorSession.class
 per\gene\post\vo\Post.class

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import per.gene.base.BaseDaoForIbatis;
 import per.gene.base.exception.ConfException;
 import per.gene.lgn.lgndao.LoginDao;
+import per.gene.lgn.vo.OperatorInfo;
 import per.gene.lgn.vo.UserInfo;
 
 import java.sql.DriverManager;
@@ -57,5 +58,10 @@ public class LoginServiceImpl extends BaseDaoForIbatis implements LoginService{
             throw new ConfException("not Found User!!");
         }
         return usr;
+    }
+
+    @Override
+    public OperatorInfo checkOperatorLogin(Map<String, String> map) {
+        return null;
     }
 }

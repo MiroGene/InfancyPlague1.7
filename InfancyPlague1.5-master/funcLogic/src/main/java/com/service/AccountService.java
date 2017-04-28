@@ -36,4 +36,11 @@ public interface AccountService {
      * @return
      */
     public int delectAccount(Map<String,String> map);
+
+    public int delectAccountList(List<AccountVo> list);
+
+    /**
+     * 查找详细信息
+     */
+    public AccountVo detailAccount(String accountId);
 }

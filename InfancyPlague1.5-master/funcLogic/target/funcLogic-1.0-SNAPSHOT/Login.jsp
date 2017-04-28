@@ -17,9 +17,9 @@
     <script src="<c:out value="${basePath}"/>/js/background.js"></script>
     <script src="<c:out value="${basePath}"/>/js/ajaxfileupload.js"></script>
     <script type="text/javascript">
-        $(function () {
+ /*       $(function () {
             alert("   ");
-        });
+        });*/
 
 
     </script>

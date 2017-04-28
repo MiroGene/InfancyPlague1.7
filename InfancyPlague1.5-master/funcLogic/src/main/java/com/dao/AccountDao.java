@@ -27,4 +27,12 @@ public interface AccountDao {
      * @return
      */
     public int getAccountCount(Map<String,String> map);
+
+
+    public int delectAccountList(List<AccountVo> accountIdList);
+
+    /**
+     * 查找详细信息
+     */
+    public AccountVo detailAccount(String accountId);
 }

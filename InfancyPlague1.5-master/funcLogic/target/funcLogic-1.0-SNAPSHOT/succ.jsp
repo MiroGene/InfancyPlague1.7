@@ -18,11 +18,6 @@
     <script src="<c:out value="${basePath}"/>/js/ajaxfileupload.js"></script>
     <title>TestLgn</title>
     <script type="text/javascript">
-        $(function () {
-            var a = "${name}";
-            alert(a);
-            alert("   ");
-        });
 
 
     </script>

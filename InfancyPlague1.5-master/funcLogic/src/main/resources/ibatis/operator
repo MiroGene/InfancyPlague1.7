@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap namespace="User">
+    <typeAlias alias="UsrInfo" type="per.gene.lgn.vo.UserInfo" />
+
+
+    <cacheModel id="oneDayCategory" type="LRU">
+        <flushInterval hours="24" />
+    </cacheModel>
+
+
+    <resultMap id="selectMap" class="UsrInfo">
+        <result property="userId" column="USER_ID" />
+        <result property="userPassword" column="PASSWORD" />
+        <result property="regCode" column="REGCODE" />
+        <result property="Career" column="CAREER" />
+        <result property="Projects" column="PROJECTS" />
+        <result property="Wish" column="WISH" />
+        <result property="Advisor" column="ADVISOR" />
+        <result property="Rank" column="RANK" />
+        <result property="Manager" column="MANAGER" />
+        <result property="userName" column="USER_NAME" />
+    </resultMap>
+
+
+    <!-- 登录 -->
+    <select id="login" parameterClass="map" resultMap="selectMap">
+        SELECT * FROM USER WHERE USER_NAME=#userName# AND PASSWORD=#userPassword#
+    </select>
+    <!--
+        <select id="login" parameterClass="usrInfo" resultMap="selectMap">
+        SELECT * FROM USER WHERE USER=#userName# AND PASSWORD=#userPassword#
+    </select>-->
+
+
+    <!-- Global分页 -->
+    <!-- 查询Global总条数 -->
+    <select id="getGlobalCount" resultClass="integer" parameterClass="map">
+        SELECT COUNT(1) FROM APPS_SYS_CONF t WHERE 	1=1
+        <dynamic prepend="">
+            <isNotNull prepend="and" property="confKey"> t.CONF_KEY LIKE
+                '%$confKey$%'</isNotNull>
+            <isNotNull prepend="and" property="groupName"> t.GROUP_NAME LIKE
+                '%$groupName$%'</isNotNull>
+        </dynamic>
+    </select>
+
+
+</sqlMap>

@@ -32,7 +32,7 @@
     </tr>
     <tr class="trs">
         <td>申请人：</td>
-        <td>${account.user}</td>
+        <td>${account.userName}</td>
     </tr>
     <tr class="trs">
         <td>金&nbsp;&nbsp;额：</td>
@@ -49,6 +49,10 @@
     <tr class="trs">
         <td>详&nbsp;&nbsp;细：</td>
         <td>${account.detail}</td>
+    </tr>
+    <tr class="trs">
+        <td>审核状态：</td>
+        <td>${account.states}</td>
     </tr>
 </table>
 </div>

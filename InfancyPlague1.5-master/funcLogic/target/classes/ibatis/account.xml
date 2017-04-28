@@ -19,6 +19,8 @@
         <result property="company" column="COMPANY" />
         <result property="states" column="STATES" />
         <result property="accountOperator" column="ACCOUNT_OPERATOR" />
+        <result property="userName" column="USER_NAME" />
+
     </resultMap>
 
     <resultMap id="listAttribute" class="AccountVo">
@@ -26,6 +28,7 @@
         <result property="title" column="TITLE" />
         <result property="states" column="STATES" />
         <result property="accountOperator" column="ACCOUNT_OPERATOR" />
+        <result property="userName" column="USER_NAME" />
     </resultMap>
 
     <!--批量删除-->
@@ -64,7 +67,10 @@
         ORDER BY ACCOUNT_DATE DESC)t
         )p limit #start#,#end#
     </select>
+    <select id="detailAccount" resultMap="selectMap" parameterClass="String">
+        SELECT * FROM ACCOUNT WHERE ACCOUNT_ID=#accountId#
 
+    </select>
 
     <!-- 查询account总条数 -->
     <select id="countAccount" resultClass="integer" parameterClass="map">
@@ -98,6 +104,7 @@
             <isNotNull prepend="," property="company">COMPANY</isNotNull>
             <isNotNull prepend="," property="states">STATES</isNotNull>
             <isNotNull prepend="," property="accountOperator">ACCOUNT_OPERATOR</isNotNull>
+            <isNotNull prepend="," property="userName">USER_NAME</isNotNull>
         </dynamic>
         ) VALUES (
         <dynamic prepend="">
@@ -110,6 +117,7 @@
             <isNotNull prepend="," property="company">#company#</isNotNull>
             <isNotNull prepend="," property="states">#states#</isNotNull>
             <isNotNull prepend="," property="accountOperator">#accountOperator#</isNotNull>
+            <isNotNull prepend="," property="userName">#userName#</isNotNull>
         </dynamic>
         )
     </insert>

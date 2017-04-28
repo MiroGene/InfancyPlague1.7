@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import per.gene.base.BaseCtrllr;
 import per.gene.base.BaseDao;
 import per.gene.base.exception.ConfException;
+import per.gene.base.session.OperatorSession;
 import per.gene.base.session.userSession;
 import per.gene.lgn.lgnsrvc.LoginService;
+import per.gene.lgn.vo.OperatorInfo;
 import per.gene.lgn.vo.UserInfo;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,7 +22,7 @@ import java.util.Map;
 /**
  * Created by Scarlet on 2017/1/18.
  */
-@Controller
+@Controller("testController")
 @RequestMapping("/Lgn")
 public class CheckLgn extends BaseCtrllr{
     private Logger log = Logger.getLogger(CheckLgn.class);//@会输出在哪里，控制台？
@@ -35,6 +37,11 @@ public class CheckLgn extends BaseCtrllr{
     public String checkUsr(HttpServletRequest request){
         String usrNme = request.getParameter("usrNme");
         String usrPwd = request.getParameter("usrPwd");
+        String flag = request.getParameter("flag");
+        flag = "user";
+/*        if (flag==null){
+            return "";
+        }*/
         Map<String,String> map = new HashMap<String, String>();
         map.put("userName",usrNme);
         map.put("userPassword",usrPwd);
@@ -45,24 +52,35 @@ public class CheckLgn extends BaseCtrllr{
         }catch (ClassNotFoundException e){
             System.out.println("aaaaaaaaaaaaaaaaaa");
         }*/
-        UserInfo usr = loginService.checkLogin(map);
-        if (usr==null){
-            throw new ConfException("未查到此用户");
+        if (flag.equals("user")){
+            UserInfo usr = loginService.checkLogin(map);
+            if (usr==null){
+                throw new ConfException("未查到此用户");
 
-            //return "";
-        }
-        else if(usr!=null){
+                //return "";
+            }
+            else if(usr!=null){
+                request.getSession().setAttribute(userSession.SESSION_USR_INFO,usr);
+                //response.sendRedirect(contextPath+"/jsp/webconf/index.jsp");
+                //function
+                request.setAttribute("name",usr.getUserName());
+                request.setAttribute("password",usr.getUserPassword());
+                request.setAttribute("userId",usr.getUserId());
 
-            request.getSession().setAttribute(userSession.SESSION_USR_INFO,usr);
-            //response.sendRedirect(contextPath+"/jsp/webconf/index.jsp");
-            //function
-            request.setAttribute("name",usr.getUserName());
-            request.setAttribute("password",usr.getUserPassword());
-            request.setAttribute("userId",usr.getUserId());
 
-
-            //跳转到个人页面
-            return "/jsp/index";
+                //跳转到个人页面
+                return "/jsp/index";
+            }
+        }else if (flag.equals("operator")){
+            OperatorInfo operatorInfo = loginService.checkOperatorLogin(map);
+            if (operatorInfo==null){
+                throw new ConfException("未查到此用户");
+            }else {
+                request.getSession().setAttribute(OperatorSession.OPERATOR_INFO_SESSION, operatorInfo);
+                request.setAttribute("operatorName",operatorInfo.getOperatorName());
+                request.setAttribute("operatorId",operatorInfo.getOperatorId());
+                return "/jsp/operator_main";
+            }
         }
 
         return "a";

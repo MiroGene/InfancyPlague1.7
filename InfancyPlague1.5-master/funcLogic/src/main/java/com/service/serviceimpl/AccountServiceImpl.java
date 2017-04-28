@@ -36,6 +36,19 @@ public class AccountServiceImpl implements AccountService{
     }
 
     public int delectAccount(Map<String,String> map) {
+
         return accountDao.delectAccount(map);
     }
+
+    public int delectAccountList(List<AccountVo> list){
+        return  accountDao.delectAccountList(list);
+    }
+
+    @Override
+    public AccountVo detailAccount(String accountId) {
+        AccountVo accountVo = accountDao.detailAccount(accountId);
+        return accountVo;
+    }
+
+
 }

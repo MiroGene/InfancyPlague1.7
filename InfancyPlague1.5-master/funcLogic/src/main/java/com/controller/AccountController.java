@@ -7,6 +7,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import per.gene.base.session.OperatorSession;
 import per.gene.base.session.userSession;
 import per.gene.base.utils.StringUtils;
 import per.gene.lgn.vo.UserInfo;
@@ -46,7 +47,9 @@ public class AccountController {
         List<AccountVo> accountVoList = new ArrayList<AccountVo>();
         //查询方式 1、日期 2、名字 3、标题
         String date = request.getParameter("searchDate");
-        String userId = request.getParameter("userId");
+        //审核改成搜索userId
+        UserInfo userInfo = (UserInfo)request.getSession().getAttribute(userSession.SESSION_USR_INFO);
+        String userId = userInfo.getUserId();
         String title = request.getParameter("searchTitle");
         String operator = request.getParameter("searchOperator");
         AccountSelectVar accounntSelectVar = new AccountSelectVar();
@@ -71,8 +74,15 @@ public class AccountController {
         }
         //返回页面
         request.setAttribute("accountVoList",accountVoList);
-        UserInfo userInfo = (UserInfo) request.getSession().getAttribute(userSession.SESSION_USR_INFO);
         request.setAttribute("user",userInfo);
+        request.setAttribute("userId",userInfo.getUserId());
+
+        AccountVo a = new AccountVo();
+        List<AccountVo> list = new ArrayList<AccountVo>();
+        list.add(a);
+       // accountService.delectAccountList(list);
+
+
         return "/jsp/account_list";
     }
     /**
@@ -87,9 +97,13 @@ public class AccountController {
         account.setAccountId(accountId);
         //TODO 设置用户名 从session中获取用户名
         UserInfo userInfo = (UserInfo) request.getSession().getAttribute(userSession.SESSION_USR_INFO);
-
+        String userId1=request.getParameter("userId");
+        String userId2 = request.getParameter("accountUser");
         if(!StringUtils.isEmpty(request.getParameter("userName"))){
             account.setUserName(request.getParameter("userName"));
+        }
+        if(!StringUtils.isEmpty(request.getParameter("userId"))){
+            account.setAccountUser(request.getParameter("userId"));
         }
         if(!StringUtils.isEmpty(request.getParameter("accountUser"))){
             account.setAccountUser(request.getParameter("accountUser"));
@@ -98,14 +112,14 @@ public class AccountController {
             account.setStates(request.getParameter("states"));
         }
         //设置主题
-        if(!StringUtils.isEmpty(request.getParameter("title"))){
-            account.setTitle(request.getParameter("title"));
+        if(!StringUtils.isEmpty(request.getParameter("accountTitle"))){
+            account.setTitle(request.getParameter("accountTitle"));
         }
         //设置金额
         if(!StringUtils.isEmpty(request.getParameter("money"))){
             account.setMoney(request.getParameter("money"));
         }
-        account.setAccountUser(userInfo.getUserId());
+       // account.setAccountUser(userInfo.getUserId());
         //设置日期
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String strDate = sdf.format(new Date());
@@ -124,7 +138,7 @@ public class AccountController {
 
         accountService.insertAccount(account);
 
-        return "main.jsp";
+        return accountListPage(request);
     }
     @RequestMapping("/updateAccount")
     public String updateAccount(HttpServletRequest request){
@@ -166,14 +180,44 @@ public class AccountController {
         accountVo1.setTitle("bbb");
         accountService.updateAccount(accountVo1);
 
-        return "/jsp/account_list";
+        return accountListPage(request);
     }
 
-    @RequestMapping("/delect")
+    @RequestMapping("/deleteAccount")
     public String delectAccount(HttpServletRequest request){
         //TODO 如何传输list？
-
+        String[] delAccountId = request.getParameterValues("delAccountId");
+        String[] delCheckBox = request.getParameterValues("delCheckBox");
+        //System.out.println(delAccountId[1]);
+//        System.out.println(delCheckBox[1]);
         //返回主页面
         return null;
+    }
+
+    /**
+     * 查看详细信息
+     * @param request
+     * @return
+     */
+    @RequestMapping("/detailAccount")
+    public String detailAccount(HttpServletRequest request){
+        String accountId = request.getParameter("accountId");
+        AccountVo accountVo = accountService.detailAccount(accountId);
+        request.setAttribute("account",accountVo);
+        if (request.getSession().getAttribute(userSession.SESSION_USR_INFO)!=null){
+            return "/jsp/account_info";
+        }else if (request.getSession().getAttribute(OperatorSession.OPERATOR_INFO_SESSION)!=null){
+            return "/jsp/account_check";
+        }
+
+
+        return "/jsp/account_";
+    }
+
+    @RequestMapping("/beforeInsert")
+    public String beforeInsert(HttpServletRequest request){
+        String userId = request.getParameter("userId");
+        request.setAttribute("userId",userId);
+        return "/jsp/account_insert";
     }
 }
