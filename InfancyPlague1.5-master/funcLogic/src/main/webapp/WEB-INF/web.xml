@@ -4,12 +4,10 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
          id="WebApp_ID" version="3.0">
     <display-name>springmvctest</display-name>
-    
     <welcome-file-list>
         <welcome-file>Login.jsp</welcome-file>
     </welcome-file-list>
     <!-- 统一编码 -->
-
     <filter>
         <filter-name>charsetEncoding</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -26,9 +24,6 @@
         <filter-name>charsetEncoding</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
-
-
     <!-- 应用上下文配置文件 -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
@@ -46,7 +41,6 @@
             <param-name>contextConfigLocation</param-name>
             <param-value>classpath:springmvc-servlet.xml</param-value>
         </init-param>
-
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -62,5 +56,4 @@
         <filter-name>jspFilter</filter-name>
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
-
 </web-app>

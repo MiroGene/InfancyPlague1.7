@@ -40,7 +40,7 @@
                 }
             }
             //                    <a href="javascript:detailInfo('<c:out value="${account.accountId}"/>')" class="tablelink">查看</a>|
-            $("#form").attr("action","<c:out value="${daddyPath}"/>/Account/deleteAccount?delAccountId="+delCheckBox);
+            $("#form").attr("action","<c:out value="${daddyPath}"/>/Account/deleteAccount?delAccountId="+delCheckBox.val());
 
             $("#form").attr("method","POST");
             //$("#form").attr("target","_blank");

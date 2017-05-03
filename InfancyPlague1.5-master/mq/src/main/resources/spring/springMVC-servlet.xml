@@ -36,6 +36,20 @@
             </list>
         </property>
     </bean>-->
+    <!-- 激活基于注解的配置 @RequestMapping, @ExceptionHandler,数据绑定 ,@NumberFormat ,
+@DateTimeFormat ,@Controller ,@Valid ,@RequestBody ,@ResponseBody等  -->
+    <mvc:annotation-driven />
+
+    <!--    &lt;!&ndash; 静态资源配置 &ndash;&gt;
+        <mvc:resources location="/conf/prop" mapping="/assets/**"></mvc:resources>-->
+
+    <!-- 视图层配置 -->
+    <!--       <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver"
+                   p:prefix="/" p:suffix=".jsp" />-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!--<property name="prefix" value="/WEB-INF/pages/"/>-->
+        <property name="suffix" value=".jsp"/>
+    </bean>
 
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 

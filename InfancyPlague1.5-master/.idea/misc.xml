@@ -40,6 +40,7 @@
   </component>
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/funcLogic" />
+    <file type="web" url="file://$PROJECT_DIR$/mq" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">

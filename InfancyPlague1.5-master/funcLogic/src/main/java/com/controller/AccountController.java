@@ -186,8 +186,8 @@ public class AccountController {
     @RequestMapping("/deleteAccount")
     public String delectAccount(HttpServletRequest request){
         //TODO 如何传输list？
-        String[] delAccountId = request.getParameterValues("delAccountId");
-        String[] delCheckBox = request.getParameterValues("delCheckBox");
+        String[] delAccountId = (String[])request.getParameterValues("delAccountId");
+        String[] delCheckBox = (String[])request.getParameterValues("delCheckBox");
         //System.out.println(delAccountId[1]);
 //        System.out.println(delCheckBox[1]);
         //返回主页面
